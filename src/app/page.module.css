@@ -85,6 +85,15 @@
 .logo {
   position: relative;
 }
+
+
+.simpleButton {
+  display: flex;
+  border: 2px solid black;
+  width: auto;
+  height: auto;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {

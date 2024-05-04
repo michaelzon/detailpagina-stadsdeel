@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
+import Card from "./components/Card";
 
 interface Wijk {
   naam: string,
@@ -10,6 +11,9 @@ interface Wijk {
 
 export default function Home() {
   const [wijken, setWijken] = useState([]);
+  const [cardIsOpen, setCardIsOpen] = useState<boolean>(false);
+
+  const handleButtonClick = () => setCardIsOpen(!cardIsOpen);
 
   useEffect(() => {
     fetch('https://api.data.amsterdam.nl/v1/gebieden/stadsdelen/?naam=Nieuw-West')
@@ -27,26 +31,35 @@ export default function Home() {
       })
       .then(res => res.json())
       .then(data => {
-        setWijken(data['_embedded']);
+        setWijken(data['_embedded'].wijken);
       })
       .catch(error => console.error('Error in fetching data:', error));
   }, []);
 
-  console.log(wijken);
- 
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-
       </div>
-
       <div className={styles.center}>
-        hoi
-      </div>
 
+        {wijken.map((wijk: Wijk, i) => (
+          <div>
+            {wijk.naam}
+          </div>
+        ))}
+      </div>
       <div className={styles.grid}>
-
       </div>
+      <button className={styles.simpleButton}
+      onClick={handleButtonClick}
+    >
+    {`card open? ${cardIsOpen}`}
+    </button>
+      <Card isOpen={cardIsOpen}>
+        <Card.Title title="some title"></Card.Title>
+        <Card.Description description="some description"></Card.Description>
+        <Card.Footer text='klap dicht' handleClose={handleButtonClick}></Card.Footer>
+      </Card>
     </main>
   );
 }
