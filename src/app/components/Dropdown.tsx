@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, createContext, useContext, ReactNode } from 'react';
+import styles from "../page.module.css";
 
 interface DropdownProps {
     onSelect: (item: any) => void;
@@ -14,12 +15,11 @@ interface ToggleProps {
 
 interface ListProps {
     // highlightedIndex: number;
-    items: string[];
     children: ReactNode;
 };
 
 interface ItemProps {
-    item: string;
+    item?: string;
     index?: number;
     isHighlighted?: boolean;
 };
@@ -35,7 +35,6 @@ interface DropdownContextProps {
     toggle: () => void;
     highlightedIndex: number;
     setHighlightedIndex: React.Dispatch<React.SetStateAction<number>>;
-    // items: string[];
     onSelect: (item: any) => void;
     handleSelect: (item: any) => void;
     children: ReactNode;
@@ -46,7 +45,6 @@ const DropdownContext = createContext<DropdownContextProps>({
     toggle: () => { },
     highlightedIndex: 0,
     setHighlightedIndex: () => { },
-    // items: ['', ''],
     onSelect: () => { },
     handleSelect: () => { },
     children: ''
@@ -55,7 +53,6 @@ const DropdownContext = createContext<DropdownContextProps>({
 const Dropdown: DropdownComponent = ({ children, onSelect }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
-    // const [items, setItems] = useState(['1', '2']);
 
     const toggle = () => setIsOpen(!isOpen);
     const close = () => setIsOpen(false);
@@ -70,10 +67,9 @@ const Dropdown: DropdownComponent = ({ children, onSelect }) => {
         toggle,
         highlightedIndex,
         setHighlightedIndex,
-        // items,
         handleSelect,
-        onSelect, // weet niet zeker of dit klopt 
-        children // weet niet zeker of dit klopt
+        onSelect,
+        children
     };
 
     return (
@@ -93,30 +89,17 @@ const Toggle: React.FC<ToggleProps> = () => {
     )
 };
 
-const List: React.FC<ListProps> = ({ items }) => {
-    const { isOpen, highlightedIndex } = useContext(DropdownContext);
-
-    return isOpen ? (
-        <ul>
-            {items.map((item, index) => (
-                <Dropdown.Item
-                    key={index}
-                    item={item}
-                    index={index}
-                    isHighlighted={index === highlightedIndex}
-                />
-            ))}
-        </ul>
-    ) : null
+const List: React.FC<ListProps> = ({ children }) => {
+    const { isOpen } = useContext(DropdownContext);
+    return isOpen ? <ul>{children}</ul> : null;
 };
 
 const Item: React.FC<ItemProps> = ({ item, isHighlighted }) => {
-    const { handleSelect, } = useContext(DropdownContext)
+    const { handleSelect, } = useContext(DropdownContext);
 
     return (
-        <li onClick={() => handleSelect(item)}>
-            {/* {item[key]} */}
-            {/* {'hahaha'} */}
+        <li className={`${styles.dropdownItem} ${isHighlighted ? styles.highlighted : ''}`}
+            onClick={() => handleSelect(item)}>
             {item}
         </li>
     )

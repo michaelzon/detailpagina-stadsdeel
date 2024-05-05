@@ -86,12 +86,20 @@
   position: relative;
 }
 
-
 .simpleButton {
   display: flex;
   border: 2px solid black;
   width: auto;
   height: auto;
+}
+
+.dropdownItem {
+  display: flex;
+  border: 2px solid black;
+}
+
+.highlighted {
+  background-color: rgba(0, 0, 255, 0.4);
 }
 
 /* Enable hover only on non-touch devices */

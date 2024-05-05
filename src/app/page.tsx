@@ -18,7 +18,6 @@ interface Buurt {
 export default function Home() {
   const [wijken, setWijken] = useState([]);
   const [cardIsOpen, setCardIsOpen] = useState<boolean>(false);
-
   const handleButtonClick = () => setCardIsOpen(!cardIsOpen);
 
   const wijkenLijstString = [
@@ -26,6 +25,13 @@ export default function Home() {
     "Geuzenveld",
     "Slotermeer-West",
     "Slotermeer-Noordoost",
+  ]
+
+  const buurtenLijstString = [
+    "Osdorper Binnenpolder",
+    "De Eendracht",
+    "Ruys de Beerenbrouckbuurt",
+    "Eendrachtspark",
   ]
 
   const wijkenLijst = [
@@ -91,6 +97,10 @@ export default function Home() {
   //     .catch(error => console.error('Error in fetching data:', error));
   // }, []);
 
+  const handleSelect = (item: string) => {
+    console.log("Selected Item:", item);
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -105,20 +115,27 @@ export default function Home() {
       <div className={styles.grid}>
       </div>
       <button className={styles.simpleButton}
-        onClick={handleButtonClick}
-      >
+        onClick={handleButtonClick}>
         {`card open? ${cardIsOpen}`}
       </button>
-      <Dropdown onSelect={() => { }}>
+      <Dropdown onSelect={handleSelect}>
         <Dropdown.Toggle />
-        <Dropdown.List items = {wijkenLijstString}>
-          <Dropdown.Item item = {'hoi'}/>
-          
-          {/* {wijkenLijst.map((wijk: Wijk, i) => { */}
-            {/* <Dropdown.Item item={wijk.naam} index={i}/> */}
-          {/* })} */}
+        <Dropdown.List>
+          {wijkenLijstString.map((wijk: string, i: number) => (
+            <Dropdown.Item key={i} item={wijk}></Dropdown.Item>
+          ))}
         </Dropdown.List>
       </Dropdown>
+
+      <Dropdown onSelect={handleSelect}>
+        <Dropdown.Toggle />
+        <Dropdown.List>
+            <Dropdown.Item key={1} item={'1'}></Dropdown.Item>
+            <Dropdown.Item key={2} item={'2'}></Dropdown.Item>
+        </Dropdown.List>
+      </Dropdown>
+
+
       <Card isOpen={cardIsOpen}>
         <Card.Footer text='klap dicht' handleClose={handleButtonClick}></Card.Footer>
         <Card.Title title="some title"></Card.Title>
