@@ -6,8 +6,13 @@ import Card from "./components/Card";
 import Dropdown from "./components/Dropdown";
 
 interface Wijk {
-  naam: string,
   identificatie: string,
+  naam: string,
+}
+
+interface Buurt {
+  identificatie: string,
+  naam: string,
 }
 
 export default function Home() {
@@ -15,6 +20,13 @@ export default function Home() {
   const [cardIsOpen, setCardIsOpen] = useState<boolean>(false);
 
   const handleButtonClick = () => setCardIsOpen(!cardIsOpen);
+
+  const wijkenLijstString = [
+    'Sloterdijk Nieuw-West',
+    "Geuzenveld",
+    "Slotermeer-West",
+    "Slotermeer-Noordoost",
+  ]
 
   const wijkenLijst = [
     {
@@ -27,46 +39,32 @@ export default function Home() {
     },
     {
       "identificatie": "03630970000042",
-      "volgnummer": 1,
-      "registratiedatum": "2024-01-25T20:36:51",
       "naam": "Slotermeer-West",
     },
     {
       "identificatie": "03630970000043",
-      "volgnummer": 1,
-      "registratiedatum": "2024-01-25T20:36:51",
       "naam": "Slotermeer-Noordoost",
     },
     {
       "identificatie": "03630970000044",
-      "volgnummer": 1,
-      "registratiedatum": "2024-01-25T20:36:51",
       "naam": "Slotermeer-Zuidoost",
     }
   ];
 
   const buurtenLijstGeuzenveld = [
     {
-      "volgnummer": 1,
-      "registratiedatum": "2024-01-25T20:36:51",
       "identificatie": "03630980000180",
       "naam": "Osdorper Binnenpolder",
     },
     {
-      "volgnummer": 1,
-      "registratiedatum": "2024-01-25T20:36:51",
       "identificatie": "03630980000181",
       "naam": "De Eendracht",
     },
     {
-      "volgnummer": 1,
-      "registratiedatum": "2024-01-25T20:36:51",
       "identificatie": "03630980000182",
       "naam": "Ruys de Beerenbrouckbuurt",
     },
     {
-      "volgnummer": 1,
-      "registratiedatum": "2024-01-25T20:36:51",
       "identificatie": "03630980000183",
       "naam": "Eendrachtspark",
     }
@@ -113,10 +111,12 @@ export default function Home() {
       </button>
       <Dropdown onSelect={() => { }}>
         <Dropdown.Toggle />
-        <Dropdown.List>
-          {wijkenLijst.map((wijk: Wijk, i) => {
-            <Dropdown.Item item={wijk.naam} index={i}/>
-          })}
+        <Dropdown.List items = {wijkenLijstString}>
+          <Dropdown.Item item = {'hoi'}/>
+          
+          {/* {wijkenLijst.map((wijk: Wijk, i) => { */}
+            {/* <Dropdown.Item item={wijk.naam} index={i}/> */}
+          {/* })} */}
         </Dropdown.List>
       </Dropdown>
       <Card isOpen={cardIsOpen}>
