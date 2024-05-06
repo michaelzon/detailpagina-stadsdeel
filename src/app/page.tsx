@@ -127,15 +127,6 @@ export default function Home() {
         </Dropdown.List>
       </Dropdown>
 
-      <Dropdown onSelect={handleSelect}>
-        <Dropdown.Toggle />
-        <Dropdown.List>
-            <Dropdown.Item key={1} item={'1'}></Dropdown.Item>
-            <Dropdown.Item key={2} item={'2'}></Dropdown.Item>
-        </Dropdown.List>
-      </Dropdown>
-
-
       <Card isOpen={cardIsOpen}>
         <Card.Footer text='klap dicht' handleClose={handleButtonClick}></Card.Footer>
         <Card.Title title="some title"></Card.Title>

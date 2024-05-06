@@ -19,6 +19,14 @@ body {
   overflow-x: hidden;
 }
 
+button {
+  all: unset;
+}
+
+button:focus {
+  outline: revert;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
