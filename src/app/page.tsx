@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import styles from "./page.module.css";
-import Card from "./components/Card";
-import Dropdown from "./components/Dropdown";
+import styles from "./styles/page.module.css";
+import Card from "./components/Card/Card";
+import Dropdown from "./components/Dropdown/Dropdown";
 
 interface Wijk {
   identificatie: string,
@@ -76,26 +76,28 @@ export default function Home() {
     }
   ];
 
-  // useEffect(() => {
-  //   fetch('https://api.data.amsterdam.nl/v1/gebieden/stadsdelen/?naam=Nieuw-West')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       if (data && data['_embedded'] && data['_embedded']['stadsdelen'][0]) {
-  //         const id = data['_embedded']['stadsdelen'][0]['identificatie'];
-  //         return id;
-  //       } else {
-  //         throw new Error('No stadsdeel data found');
-  //       }
-  //     })
-  //     .then(identificatie => {
-  //       return fetch(`https://api.data.amsterdam.nl/v1/gebieden/wijken/?ligtInStadsdeel.identificatie=${identificatie}`);
-  //     })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setWijken(data['_embedded'].wijken);
-  //     })
-  //     .catch(error => console.error('Error in fetching data:', error));
-  // }, []);
+  useEffect(() => {
+    fetch('https://api.data.amsterdam.nl/v1/gebieden/stadsdelen/?naam=Nieuw-West')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data['_embedded'] && data['_embedded']['stadsdelen'][0]) {
+          const id = data['_embedded']['stadsdelen'][0]['identificatie'];
+          return id;
+        } else {
+          throw new Error('No stadsdeel data found');
+        }
+      })
+      .then(identificatie => {
+        return fetch(`https://api.data.amsterdam.nl/v1/gebieden/wijken/?ligtInStadsdeel.identificatie=${identificatie}`);
+      })
+      .then(res => res.json())
+      .then(data => {
+        setWijken(data['_embedded'].wijken);
+      })
+      .catch(error => console.error('Error in fetching data:', error));
+  }, []);
+
+  console.log(wijken);
 
   const handleSelect = (item: string) => {
     console.log("Selected Item:", item);
@@ -118,11 +120,12 @@ export default function Home() {
         onClick={handleButtonClick}>
         {`card open? ${cardIsOpen}`}
       </button>
-      <Dropdown onSelect={handleSelect}>
+      {/* ik map liever niet in het component zelf, omddat je meestal een lijst van objecten zou krijgen, en ik wil dat je specifiek kan zijn over wat er precies precies als waarde in item kan staan. Kan waarschijnlijk alsnog wel bewerksteligt worden, maar ik vind het gewoon niet mooi om alleen <dropdown> dropdownList te doen zonder specifiek <dropdownItem> te definieeren. */}
+      <Dropdown onSelect={handleSelect} items = {wijkenLijstString}>
         <Dropdown.Toggle />
         <Dropdown.List>
           {wijkenLijstString.map((wijk: string, i: number) => (
-            <Dropdown.Item key={i} item={wijk}></Dropdown.Item>
+            <Dropdown.Item index={i} item={wijk}></Dropdown.Item>
           ))}
         </Dropdown.List>
       </Dropdown>

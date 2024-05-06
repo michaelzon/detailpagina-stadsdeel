@@ -1,0 +1,52 @@
+.dropdown {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20rem;
+    height: 3rem;
+    font-size: 18px;
+    border: 1px solid #004699;
+    padding: .5rem 1rem .5rem 1rem;
+    margin-left: 1.5rem;
+    gap: 1.2rem;
+}
+
+.dropdown:hover {
+    border: 2px solid #00387A;
+}
+
+.list {
+    margin-left: 1.5rem;
+    border-style: solid;
+    border-width: 0 2px 2px;
+    border-color: #004699;
+}
+
+.dropdown.open {
+    border: 2px solid #004699;
+}
+
+.item {
+    display: flex;
+    padding: .5rem 1.5rem;
+    color: #004699;
+    line-height: 1.8rem;
+}
+
+.icon {
+    height: 1rem;
+    width: 1rem;
+}
+
+.notSelected {
+    color: #767676
+}
+
+.highlighted {
+    background-color: #004699;
+    color: #FFFFFF
+}
+
+.rotated {
+    transform: rotate(180deg); 
+}
