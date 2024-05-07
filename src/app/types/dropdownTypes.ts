@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, ReactNode, FC } from 'react';
 
 export interface DropdownProps {
-    items: string[];
+    items: DataObj[];
     onSelect: (item: any) => void;
     children: ReactNode;
 };

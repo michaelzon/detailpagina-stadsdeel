@@ -12,43 +12,20 @@ interface Wijk {
   naam: string,
 }
 
-interface Data {
-  name: string;
-}
-
 interface Buurt {
   identificatie: string,
   naam: string,
 }
 
-
 export default function Home() {
-  const [wijken, setWijken] = useState([]);
-
-  // const [data, setData] = useState<Data>();
-  // const [error, setError] = useState("");
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [isError, setIsError] = useState(false);
-
-  // const getData = useCallback(async () => {
-  //   setIsLoading(true);
-  //   const { data, isError, error } = await getWijkenData();
-  //   setIsLoading(false);
-  //   if (!isError) setData(data);
-  //   else {
-  //     setIsError(isError);
-  //     setError(error);
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [wijken, setWijken] = useState<Wijk[]>([]);
+  const [selectedWijk, setSelectedWijk] = useState<Wijk>({ identificatie: '', naam: '' });
+  const [buurten, setBuurten] =  useState<Buurt[]>([]);
+  const [wijkenIsLoading, setWijkenIsLoading] = useState(false);
+  const [buurtenIsLoading, setBuurtenIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
+    setWijkenIsLoading(true);
     fetch('https://api.data.amsterdam.nl/v1/gebieden/stadsdelen/?naam=Nieuw-West')
       .then(res => res.json())
       .then(data => {
@@ -65,40 +42,54 @@ export default function Home() {
       .then(res => res.json())
       .then(data => {
         setWijken(data['_embedded'].wijken);
-        setIsLoading(false);
+        setWijkenIsLoading(false);
       })
       .catch(error => console.error('Error in fetching data:', error));
   }, []);
 
-  console.log('wijken', wijken);
+  useEffect(() => {
+    setBuurtenIsLoading(true);
+    console.log('hij gaat door use effect van call naar buurten')
+    fetch(`https://api.data.amsterdam.nl/v1/gebieden/buurten/?ligtInWijk.identificatie=${selectedWijk.identificatie}`)
+      .then(res => res.json())
+      .then(data => {
+        setBuurten(data['_embedded'].buurten);
+        setBuurtenIsLoading(false);
+      })
+      .catch(error => console.error('Error in fetching data:', error));
+  }, [selectedWijk]);
 
-  const handleSelect = (item: string) => {
-    console.log("Selected Item:", item);
+  // console.log('wijken', wijken);
+  // console.log('selected wijk', selectedWijk);
+  // console.log('buurten', buurten);
+
+  const handleSelect = (item: Wijk) => {
+    setSelectedWijk(item)
   };
 
   return (
     <main className={styles.main}>
       <div className={styles.description}>
       </div>
-      <div>
+      <div className={styles.dropdownContainer}>
         <Dropdown onSelect={handleSelect} items={wijken}>
           <Dropdown.Toggle label={"wijk"} />
           <Dropdown.List>
-            {isLoading ? <p> is loading... </p> :
+            {wijkenIsLoading ? <p> wijken are loading... </p> :
               wijken.map((wijk: Wijk, i: number) => (
                 <Dropdown.Item index={i} item={wijk}></Dropdown.Item>
               ))}
           </Dropdown.List>
         </Dropdown>
-        {/* <Dropdown onSelect={handleSelect} items={wijken}>
-          <Dropdown.Toggle label={"buurt"}/>
+        <Dropdown onSelect={handleSelect} items={wijken}>
+          <Dropdown.Toggle label={"buurt"} />
           <Dropdown.List>
-            {isLoading ? <p> is loading... </p> :
-              wijken.map((wijk: Wijk, i: number) => (
-                <Dropdown.Item index={i} item={wijk}></Dropdown.Item>
+            {buurtenIsLoading ? <p> buurten are loading... </p> :
+              buurten.map((buurt: Buurt, i: number) => (
+                <Dropdown.Item index={i} item={buurt}></Dropdown.Item>
               ))}
           </Dropdown.List>
-        </Dropdown> */}
+        </Dropdown>
       </div>
       <div className={styles.grid}>
       </div>
