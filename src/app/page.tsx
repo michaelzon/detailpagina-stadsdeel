@@ -1,13 +1,19 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./styles/page.module.css";
 import Card from "./components/Card/Card";
 import Dropdown from "./components/Dropdown/Dropdown";
+import { wijkenLijst } from "./data/wijkenData";
+import { getWijkenData } from "./services/getWijkenData";
 
 interface Wijk {
   identificatie: string,
   naam: string,
+}
+
+interface Data {
+  name: string;
 }
 
 interface Buurt {
@@ -15,68 +21,34 @@ interface Buurt {
   naam: string,
 }
 
+
 export default function Home() {
   const [wijken, setWijken] = useState([]);
-  const [cardIsOpen, setCardIsOpen] = useState<boolean>(false);
-  const handleButtonClick = () => setCardIsOpen(!cardIsOpen);
 
-  const wijkenLijstString = [
-    'Sloterdijk Nieuw-West',
-    "Geuzenveld",
-    "Slotermeer-West",
-    "Slotermeer-Noordoost",
-  ]
+  // const [data, setData] = useState<Data>();
+  // const [error, setError] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [isError, setIsError] = useState(false);
 
-  const buurtenLijstString = [
-    "Osdorper Binnenpolder",
-    "De Eendracht",
-    "Ruys de Beerenbrouckbuurt",
-    "Eendrachtspark",
-  ]
+  // const getData = useCallback(async () => {
+  //   setIsLoading(true);
+  //   const { data, isError, error } = await getWijkenData();
+  //   setIsLoading(false);
+  //   if (!isError) setData(data);
+  //   else {
+  //     setIsError(isError);
+  //     setError(error);
+  //   }
+  // }, [])
 
-  const wijkenLijst = [
-    {
-      "identificatie": "03630970000040",
-      'naam': 'Sloterdijk Nieuw-West',
-    },
-    {
-      "identificatie": "03630970000041",
-      "naam": "Geuzenveld"
-    },
-    {
-      "identificatie": "03630970000042",
-      "naam": "Slotermeer-West",
-    },
-    {
-      "identificatie": "03630970000043",
-      "naam": "Slotermeer-Noordoost",
-    },
-    {
-      "identificatie": "03630970000044",
-      "naam": "Slotermeer-Zuidoost",
-    }
-  ];
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
-  const buurtenLijstGeuzenveld = [
-    {
-      "identificatie": "03630980000180",
-      "naam": "Osdorper Binnenpolder",
-    },
-    {
-      "identificatie": "03630980000181",
-      "naam": "De Eendracht",
-    },
-    {
-      "identificatie": "03630980000182",
-      "naam": "Ruys de Beerenbrouckbuurt",
-    },
-    {
-      "identificatie": "03630980000183",
-      "naam": "Eendrachtspark",
-    }
-  ];
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch('https://api.data.amsterdam.nl/v1/gebieden/stadsdelen/?naam=Nieuw-West')
       .then(res => res.json())
       .then(data => {
@@ -93,11 +65,12 @@ export default function Home() {
       .then(res => res.json())
       .then(data => {
         setWijken(data['_embedded'].wijken);
+        setIsLoading(false);
       })
       .catch(error => console.error('Error in fetching data:', error));
   }, []);
 
-  console.log(wijken);
+  console.log('wijken', wijken);
 
   const handleSelect = (item: string) => {
     console.log("Selected Item:", item);
@@ -107,34 +80,28 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.description}>
       </div>
-      <div className={styles.center}>
-        {wijkenLijst.map((wijk: Wijk, i) => (
-          <div>
-            {wijk.naam}
-          </div>
-        ))}
+      <div>
+        <Dropdown onSelect={handleSelect} items={wijken}>
+          <Dropdown.Toggle label={"wijk"} />
+          <Dropdown.List>
+            {isLoading ? <p> is loading... </p> :
+              wijken.map((wijk: Wijk, i: number) => (
+                <Dropdown.Item index={i} item={wijk}></Dropdown.Item>
+              ))}
+          </Dropdown.List>
+        </Dropdown>
+        {/* <Dropdown onSelect={handleSelect} items={wijken}>
+          <Dropdown.Toggle label={"buurt"}/>
+          <Dropdown.List>
+            {isLoading ? <p> is loading... </p> :
+              wijken.map((wijk: Wijk, i: number) => (
+                <Dropdown.Item index={i} item={wijk}></Dropdown.Item>
+              ))}
+          </Dropdown.List>
+        </Dropdown> */}
       </div>
       <div className={styles.grid}>
       </div>
-      <button className={styles.simpleButton}
-        onClick={handleButtonClick}>
-        {`card open? ${cardIsOpen}`}
-      </button>
-      {/* ik map liever niet in het component zelf, omddat je meestal een lijst van objecten zou krijgen, en ik wil dat je specifiek kan zijn over wat er precies precies als waarde in item kan staan. Kan waarschijnlijk alsnog wel bewerksteligt worden, maar ik vind het gewoon niet mooi om alleen <dropdown> dropdownList te doen zonder specifiek <dropdownItem> te definieeren. */}
-      <Dropdown onSelect={handleSelect} items = {wijkenLijstString}>
-        <Dropdown.Toggle />
-        <Dropdown.List>
-          {wijkenLijstString.map((wijk: string, i: number) => (
-            <Dropdown.Item index={i} item={wijk}></Dropdown.Item>
-          ))}
-        </Dropdown.List>
-      </Dropdown>
-
-      <Card isOpen={cardIsOpen}>
-        <Card.Footer text='klap dicht' handleClose={handleButtonClick}></Card.Footer>
-        <Card.Title title="some title"></Card.Title>
-        <Card.Description description="some description"></Card.Description>
-      </Card>
     </main>
   );
 }

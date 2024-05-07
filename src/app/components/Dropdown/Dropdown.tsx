@@ -9,7 +9,7 @@ const DropdownContext = createContext<DropdownContextProps>({
     toggle: () => { },
     highlightedIndex: 0,
     itemIsSelected: false,
-    selectedItem: '',
+    selectedItem: { naam: '', identificatie: '' },
     setHighlightedIndex: () => { },
     onSelect: () => { },
     handleSelect: () => { },
@@ -20,7 +20,7 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const [itemIsSelected, setItemIsSelected] = useState(false);
-    const [selectedItem, setSelectedItem] = useState('');
+    const [selectedItem, setSelectedItem] = useState({ naam: '', identificatie: '' });
     const toggle = () => setIsOpen(!isOpen);
     const close = () => setIsOpen(false);
 
@@ -83,12 +83,12 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
     )
 };
 
-const Toggle: React.FC<ToggleProps> = () => {
+const Toggle: React.FC<ToggleProps> = ({ label }) => {
     const { isOpen, toggle, itemIsSelected, selectedItem } = useContext(DropdownContext);
 
     return (
         <button className={`${styles.dropdown} ${isOpen ? styles.open : ''}`} onClick={toggle} aria-haspopup="true" aria-expanded={isOpen}>
-            <span className={`${itemIsSelected ? '' : styles.notSelected}`}> {itemIsSelected ? `${selectedItem}` : 'Select option'} </span>
+            <span className={`${itemIsSelected ? '' : styles.notSelected}`}> {itemIsSelected ? `${selectedItem.naam}` : `Selecteer ${label}`} </span>
             <img src="arrow-down.svg" alt="arrow-down" className={`${styles.icon} ${isOpen ? styles.rotated : ''}`} />
         </button>
     )
@@ -101,14 +101,12 @@ const List: React.FC<ListProps> = ({ children }) => {
 
 const Item: React.FC<ItemProps> = ({ item, index }) => {
     const { handleSelect, highlightedIndex } = useContext(DropdownContext);
-
-    const isHighlighted = index === highlightedIndex
-    console.log(isHighlighted);
+    const isHighlighted = index === highlightedIndex;
 
     return (
         <li className={`${styles.item} ${isHighlighted ? styles.highlighted : ''}`}
             onClick={() => handleSelect(item)}>
-            {item}
+            {item.naam}
         </li>
     )
 }

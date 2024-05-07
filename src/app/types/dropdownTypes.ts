@@ -7,6 +7,7 @@ export interface DropdownProps {
 };
 
 export interface ToggleProps {
+    label: string;
     // isOpen: boolean;
     // toggle: () => void;
 };
@@ -16,8 +17,13 @@ export interface ListProps {
     children: ReactNode;
 };
 
+export type DataObj = {
+    naam: string;
+    identificatie: string;
+}
+
 export interface ItemProps {
-    item: string;
+    item: DataObj;
     index: number;
     isHighlighted?: boolean;
 };
@@ -33,9 +39,9 @@ export interface DropdownContextProps {
     toggle: () => void;
     highlightedIndex: number;
     itemIsSelected: boolean;
-    selectedItem: string;
+    selectedItem: DataObj;
     setHighlightedIndex: Dispatch<SetStateAction<number>>;
     onSelect: (item: any) => void;
-    handleSelect: (item: any) => void;
+    handleSelect: (object: any) => void;
     children: ReactNode;
 }
