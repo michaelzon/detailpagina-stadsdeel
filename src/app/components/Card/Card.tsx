@@ -61,11 +61,3 @@ Card.Description = Description;
 Card.Footer = Footer;
 
 export default Card;
-
-
-
-{/* <Card isOpen={cardIsOpen}>
-<Card.Footer text='klap dicht' handleClose={handleButtonClick}></Card.Footer>
-<Card.Title title="some title"></Card.Title>
-<Card.Description description="some description"></Card.Description>
-</Card> */}

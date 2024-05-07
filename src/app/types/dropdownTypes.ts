@@ -8,12 +8,9 @@ export interface DropdownProps {
 
 export interface ToggleProps {
     label: string;
-    // isOpen: boolean;
-    // toggle: () => void;
 };
 
 export interface ListProps {
-    // highlightedIndex: number;
     children: ReactNode;
 };
 

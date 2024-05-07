@@ -1,11 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles/page.module.css";
-import Card from "./components/Card/Card";
 import Dropdown from "./components/Dropdown/Dropdown";
-import { wijkenLijst } from "./data/wijkenData";
-import { getWijkenData } from "./services/getWijkenData";
 
 interface Wijk {
   identificatie: string,
@@ -58,10 +55,6 @@ export default function Home() {
       })
       .catch(error => console.error('Error in fetching data:', error));
   }, [selectedWijk]);
-
-  // console.log('wijken', wijken);
-  // console.log('selected wijk', selectedWijk);
-  // console.log('buurten', buurten);
 
   const handleSelect = (item: Wijk) => {
     setSelectedWijk(item)

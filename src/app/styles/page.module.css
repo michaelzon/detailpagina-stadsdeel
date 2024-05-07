@@ -98,41 +98,6 @@
   height: auto;
 }
 
-/* .dropdown {
-  display: flex;
-  justify-content: space-between;  
-  align-items: center;
-  width: 20rem;
-  height: 3rem;
-  font-size: 18px;
-  border: 1px solid #004699;
-  padding: .5rem 1rem .5rem 1rem;
-  margin-left: 1.5rem;
-  gap: 1.2rem;
-}
-
-.dropdown:hover{
-  border: 2px solid #00387A;
-}
-
-.dropdownItem {
-  display: flex;
-  border: 2px solid black;
-}
-
-.icon {
-  height: 1rem;
-  width: 1rem;
-}
-
-.notSelected {
-  color: #767676
-}
-
-.highlighted {
-  background-color: rgba(0, 0, 255, 0.4);
-} */
-
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {

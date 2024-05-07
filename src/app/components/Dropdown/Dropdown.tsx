@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, createContext, useContext, ReactNode, KeyboardEvent } from 'react';
+import React, { useState, createContext, useContext, KeyboardEvent } from 'react';
 import styles from './Dropdown.module.css'
 import { DropdownComponent, DropdownContextProps, ListProps, ItemProps, ToggleProps } from '@/app/types/dropdownTypes'
 
