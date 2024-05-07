@@ -70,7 +70,7 @@ export default function Home() {
           <Dropdown.List>
             {wijkenIsLoading ? <p> wijken are loading... </p> :
               wijken.map((wijk: Wijk, i: number) => (
-                <Dropdown.Item index={i} item={wijk}></Dropdown.Item>
+                <Dropdown.Item key={i} item={wijk}></Dropdown.Item>
               ))}
           </Dropdown.List>
         </Dropdown>
@@ -79,7 +79,7 @@ export default function Home() {
           <Dropdown.List>
             {buurtenIsLoading ? <p> buurten are loading... </p> :
               buurten.map((buurt: Buurt, i: number) => (
-                <Dropdown.Item index={i} item={buurt}></Dropdown.Item>
+                <Dropdown.Item key={i} item={buurt}></Dropdown.Item>
               ))}
           </Dropdown.List>
         </Dropdown>

@@ -99,9 +99,9 @@ const List: React.FC<ListProps> = ({ children }) => {
     return isOpen ? <ul className={styles.list}>{children}</ul> : null;
 };
 
-const Item: React.FC<ItemProps> = ({ item, index }) => {
+const Item: React.FC<ItemProps> = ({ item, key }) => {
     const { handleSelect, highlightedIndex } = useContext(DropdownContext);
-    const isHighlighted = index === highlightedIndex;
+    const isHighlighted = key === highlightedIndex;
 
     return (
         <li className={`${styles.item} ${isHighlighted ? styles.highlighted : ''}`}
