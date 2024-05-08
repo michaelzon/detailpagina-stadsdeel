@@ -43,7 +43,6 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
         children
     };
 
-    console.log(items);
     const highLightNext = () => {
         setHighlightedIndex((prev) => (prev < items.length - 1 ? prev + 1 : prev));
     }
