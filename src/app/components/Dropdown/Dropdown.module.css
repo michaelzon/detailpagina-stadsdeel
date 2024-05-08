@@ -1,3 +1,7 @@
+.container {
+    position: relative;
+}
+
 .dropdown {
     display: flex;
     justify-content: space-between;
@@ -7,7 +11,6 @@
     font-size: 18px;
     border: 1px solid #004699;
     padding: .5rem 1rem .5rem 1rem;
-    margin-left: 1.5rem;
     gap: 1.2rem;
 }
 
@@ -16,10 +19,16 @@
 }
 
 .list {
-    margin-left: 1.5rem;
     border-style: solid;
     border-width: 0 2px 2px;
     border-color: #004699;
+    max-height: 20rem;
+    overflow: scroll;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #FFFFFF;
 }
 
 .dropdown.open {
@@ -48,5 +57,5 @@
 }
 
 .rotated {
-    transform: rotate(180deg); 
+    transform: rotate(180deg);
 }

@@ -1,0 +1,70 @@
+.main {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: start;
+    margin-left: 1.5rem;
+    flex-grow: 1;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.description h5 {
+    color: #004699;
+    font-size: 1.125rem;
+    line-height: 1.4;
+}
+
+.description h1 {
+    font-size: 1.875rem;
+    line-height: 1.25;
+    padding-bottom: 0.8rem;
+}
+
+.description .wrapper {
+    border-bottom: 3px solid #F4F4F4
+}
+
+.description h6 {
+    margin-bottom: 0.4rem;
+    padding: 0;
+    color: #666666;
+    font-size: 1rem;
+}
+
+.interactiveSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.interactiveSection h3 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-bottom: 1.4rem;
+    margin-top: 0.8rem;
+    color: #004699
+}
+
+.interactiveSection h4 {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+    margin-top: 1.6rem;
+    color: #004699
+}
+
+.list { 
+    list-style-type: square;
+    margin-left: 0.9rem;
+}
+
+.item {
+    margin-bottom: 0.2rem;
+}
+  

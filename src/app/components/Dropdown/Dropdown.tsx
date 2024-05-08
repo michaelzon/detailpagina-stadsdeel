@@ -43,6 +43,7 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
         children
     };
 
+    console.log(items);
     const highLightNext = () => {
         setHighlightedIndex((prev) => (prev < items.length - 1 ? prev + 1 : prev));
     }
@@ -76,7 +77,7 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
 
     return (
         <DropdownContext.Provider value={contextValue}>
-            <div className={'dropdown'} onKeyDown={handleKeyDown} tabIndex={0}>
+            <div className={styles.container} onKeyDown={handleKeyDown} tabIndex={0}>
                 {children}
             </div>
         </DropdownContext.Provider>
@@ -99,9 +100,9 @@ const List: React.FC<ListProps> = ({ children }) => {
     return isOpen ? <ul className={styles.list}>{children}</ul> : null;
 };
 
-const Item: React.FC<ItemProps> = ({ item, key }) => {
+const Item: React.FC<ItemProps> = ({ item, index }) => {
     const { handleSelect, highlightedIndex } = useContext(DropdownContext);
-    const isHighlighted = key === highlightedIndex;
+    const isHighlighted = index === highlightedIndex;
 
     return (
         <li className={`${styles.item} ${isHighlighted ? styles.highlighted : ''}`}

@@ -21,7 +21,7 @@ export type DataObj = {
 
 export interface ItemProps {
     item: DataObj;
-    key: number;
+    index: number;
     isHighlighted?: boolean;
 };
 

@@ -1,0 +1,9 @@
+.header {
+    display: flex;
+    height: auto;
+    margin: 1rem;
+}
+
+.logo {
+    position: relative;
+}
