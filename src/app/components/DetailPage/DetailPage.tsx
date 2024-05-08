@@ -2,68 +2,27 @@ import { useEffect, useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import styles from './DetailPage.module.css'
 import Card from '../Card/Card';
+import { Buurt, Wijk } from '@/app/types/gebiedenTypes';
 
-interface Wijk {
-    identificatie: string,
-    naam: string,
+interface DetailPageProps {
+    wijken: Wijk[];
+    selectedWijk: Wijk;
+    buurten: Buurt[];
+    wijkenIsLoading: boolean;
+    buurtenIsLoading: boolean;
+    stadsdeelCode: string;
+    handleSelect: (wijk: Wijk) => void;
 }
 
-interface Buurt {
-    identificatie: string,
-    naam: string,
-}
-
-export default function DetailPage() {
-    const [wijken, setWijken] = useState<Wijk[]>([]);
-    const [selectedWijk, setSelectedWijk] = useState<Wijk>({ identificatie: '', naam: '' });
-    const [buurten, setBuurten] = useState<Buurt[]>([]);
-    const [wijkenIsLoading, setWijkenIsLoading] = useState<boolean>(false);
-    const [buurtenIsLoading, setBuurtenIsLoading] = useState<boolean>(false);
-    const [stadsdeelCode, setStadsdeelCode] = useState<string>('');
-
-    useEffect(() => {
-        setWijkenIsLoading(true);
-        fetch('https://api.data.amsterdam.nl/v1/gebieden/stadsdelen/?naam=Nieuw-West')
-            .then(res => res.json())
-            .then(data => {
-                if (data && data['_embedded'] && data['_embedded']['stadsdelen'][0]) {
-                    const code = data['_embedded']['stadsdelen'][0]['code']
-                    console.log(data);
-                    console.log(code)
-                    setStadsdeelCode(code);
-                    const id = data['_embedded']['stadsdelen'][0]['identificatie'];
-                    return id;
-                } else {
-                    throw new Error('No stadsdeel data found');
-                }
-            })
-            .then(identificatie => {
-                console.log(identificatie)
-                return fetch(`https://api.data.amsterdam.nl/v1/gebieden/wijken/?ligtInStadsdeel.identificatie=${identificatie}`);
-            })
-            .then(res => res.json())
-            .then(data => {
-
-                setWijken(data['_embedded'].wijken);
-                setWijkenIsLoading(false);
-            })
-            .catch(error => console.error('Error in fetching data:', error));
-    }, []);
-
-    useEffect(() => {
-        setBuurtenIsLoading(true);
-        fetch(`https://api.data.amsterdam.nl/v1/gebieden/buurten/?ligtInWijk.identificatie=${selectedWijk.identificatie}`)
-            .then(res => res.json())
-            .then(data => {
-                setBuurten(data['_embedded'].buurten);
-                setBuurtenIsLoading(false);
-            })
-            .catch(error => console.error('Error in fetching data:', error));
-    }, [selectedWijk]);
-
-    const handleSelect = (item: Wijk) => {
-        setSelectedWijk(item)
-    };
+export const DetailPage: React.FC<DetailPageProps> = ({
+    wijken,
+    selectedWijk,
+    buurten,
+    wijkenIsLoading,
+    buurtenIsLoading,
+    stadsdeelCode,
+    handleSelect
+}) => {
 
     return (
         <main className={styles.main}>
@@ -96,9 +55,9 @@ export default function DetailPage() {
                         ))}
                 </ul>
             </div>
-            <Card isOpen={true}> 
-            <Card.Title title='henk'></Card.Title>
-            <Card.Description description='vlees'></Card.Description>
+            <Card isOpen={true}>
+                <Card.Title title='bla'></Card.Title>
+                <Card.Description description='bla'></Card.Description>
             </Card>
         </main>
     );
