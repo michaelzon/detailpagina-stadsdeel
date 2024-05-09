@@ -23,10 +23,11 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
     const [stadsdeelCode, setStadsdeelCode] = useState<string>('');
     const [buurtenError, setBuurtenError] = useState<string | null>(null);
 
+    // Warning: React Hook useEffect has missing dependencies: 'stadsdeelData.code' and 'wijkenData'. Either include them or remove the dependency array. If 'setStadsdeelCode' needs the current value of 'stadsdeelData.code', you can also switch to useReducer instead of useState and read 'stadsdeelData.code' in the reducer.  react-hooks/exhaustive-deps
     useEffect(() => {
         setStadsdeelCode(stadsdeelData.code);
         setWijken(wijkenData);
-    }, []);
+    }, [stadsdeelData.code, wijkenData]); 
 
     const handleSelect = (item: Wijk) => {
         setSelectedWijk(item);
@@ -45,7 +46,7 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
             setBuurtenIsLoading(false);
         }
         fetchBuurten();
-    }, [selectedWijk]);
+    }, [selectedWijk, ]);
 
     return (
         <div className={styles.container}>

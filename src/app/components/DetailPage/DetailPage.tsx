@@ -1,6 +1,7 @@
 import Dropdown from '../Dropdown/Dropdown';
 import styles from './DetailPage.module.css'
 import { Buurt, Wijk } from '@/app/types/gebiedenTypes';
+import Image from 'next/image';
 
 interface DetailPageProps {
     wijken: Wijk[];
@@ -54,7 +55,7 @@ export const DetailPage: React.FC<DetailPageProps> = ({
                 <h3> Buurten </h3>
                 <ul className={styles.list}>
                     {selectedWijk.naam !== "" && buurtenIsLoading ?
-                        <img src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
+                        <Image width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton}/>
                         :
                         buurten.map((buurt: Buurt, i: number) => (
                             <li className={styles.item} key={i}>{buurt.naam}</li>

@@ -1,7 +1,6 @@
 .container {
     position: relative;
 }
-
 .dropdown {
     display: flex;
     justify-content: space-between;
@@ -22,11 +21,13 @@
     border-style: solid;
     border-width: 0 2px 2px;
     border-color: #004699;
+    max-height: 20rem;
+    overflow: scroll;
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;        
-    background-color: #FFFFFF;
+    width: 100%;
+        background-color: #FFFFFF;
 }
 
 .dropdown.open {
@@ -40,11 +41,6 @@
     line-height: 1.8rem;
 }
 
-.icon {
-    height: 1rem;
-    width: 1rem;
-}
-
 .notSelected {
     color: #767676
 }
@@ -55,5 +51,6 @@
 }
 
 .rotated {
-    transform: rotate(180deg);
+    transform: rotate(180deg); 
 }
+
