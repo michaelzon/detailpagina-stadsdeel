@@ -2,8 +2,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { getStadsdeelData } from "@/app/api/getStadsdeelData";
-import { Wijk, Buurt } from "@/app/types/gebiedenTypes";
+import { Wijk, Buurt, Stadsdeel } from "@/app/types/gebiedenTypes";
 import { DetailPage } from "../DetailPage/DetailPage";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -11,8 +10,8 @@ import styles from './AppContainer.module.css'
 import { getBuurtenData } from "@/app/api/getBuurtenData";
 
 interface AppContainerProps {
-    stadsdeelData: any;
-    wijkenData: any;
+    stadsdeelData: Stadsdeel;
+    wijkenData: Wijk[];
 }
 
 export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijkenData }) => {
@@ -22,27 +21,32 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
     const [wijkenIsLoading, setWijkenIsLoading] = useState<boolean>(false);
     const [buurtenIsLoading, setBuurtenIsLoading] = useState<boolean>(false);
     const [stadsdeelCode, setStadsdeelCode] = useState<string>('');
+    const [buurtenError, setBuurtenError] = useState<string | null>(null);
 
     useEffect(() => {
         setStadsdeelCode(stadsdeelData.code);
         setWijken(wijkenData);
     }, []);
-    
+
     const handleSelect = (item: Wijk) => {
         setSelectedWijk(item);
     };
 
     useEffect(() => {
         async function fetchBuurten() {
-            const buurtenData = await getBuurtenData(selectedWijk.identificatie);
-            setBuurten(buurtenData);
+            setBuurtenIsLoading(true);
+            try {
+                const buurtenData = await getBuurtenData(selectedWijk.identificatie);
+                setBuurten(buurtenData);
+            } catch (error: any) {
+                setBuurtenError("Niet gelukt om buurten op te halen. Probeer het later nog een keer.");
+                console.error("Ophalen van buurten mislukt", error.message)
+            }
             setBuurtenIsLoading(false);
         }
-        setBuurtenIsLoading(true);
         fetchBuurten();
     }, [selectedWijk]);
 
-    
     return (
         <div className={styles.container}>
             <Header />
@@ -54,6 +58,7 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
                 buurtenIsLoading={buurtenIsLoading}
                 stadsdeelCode={stadsdeelCode}
                 handleSelect={handleSelect}
+                buurtenError={buurtenError}
             />
             <Footer />
         </div>

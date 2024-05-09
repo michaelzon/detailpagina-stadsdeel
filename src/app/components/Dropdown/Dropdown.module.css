@@ -22,12 +22,10 @@
     border-style: solid;
     border-width: 0 2px 2px;
     border-color: #004699;
-    max-height: 20rem;
-    overflow: scroll;
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
+    width: 100%;        
     background-color: #FFFFFF;
 }
 

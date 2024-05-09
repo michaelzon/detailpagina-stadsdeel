@@ -10,6 +10,7 @@ interface DetailPageProps {
     buurtenIsLoading: boolean;
     stadsdeelCode: string;
     handleSelect: (wijk: Wijk) => void;
+    buurtenError: string | null;
 }
 
 export const DetailPage: React.FC<DetailPageProps> = ({
@@ -19,34 +20,38 @@ export const DetailPage: React.FC<DetailPageProps> = ({
     wijkenIsLoading,
     buurtenIsLoading,
     stadsdeelCode,
-    handleSelect
+    handleSelect,
+    buurtenError
 }) => {
 
+    if (buurtenError) {
+        return <div> Error: {buurtenError} </div>
+    }
 
     return (
         <main className={styles.main}>
-            <div className={styles.description}>
+            <section className={styles.description}>
                 <div className={styles.wrapper}>
-                    <h5> Stadsdeel </h5>
-                    <h1> Nieuw-West</h1>
+                    <h1> Stadsdeel </h1>
+                    <h2> Nieuw-West</h2>
                 </div>
                 <div className={styles.codeContainer}>
-                    <h6>Code</h6>
+                    <h3>Code</h3>
                     {stadsdeelCode && <span className={styles.code}>{stadsdeelCode}</span>}
                 </div>
-            </div>
-            <div className={styles.interactiveSection}>
-                <h3> Wijken </h3>
+            </section>
+            <section className={styles.interactiveSection}>
+                <h2> Wijken </h2>
                 <Dropdown onSelect={handleSelect} items={wijken}>
                     <Dropdown.Toggle label={"wijk"} />
                     <Dropdown.List>
-                        {wijkenIsLoading ? <p> wijken are loading... </p> :
+                        {wijkenIsLoading ? <p> wijken zijn aan het laden </p> :
                             wijken.map((wijk: Wijk, i: number) => (
                                 <Dropdown.Item key={i} index={i} item={wijk}></Dropdown.Item>
                             ))}
                     </Dropdown.List>
                 </Dropdown>
-                <h4> Buurten </h4>
+                <h3> Buurten </h3>
                 <ul className={styles.list}>
                     {selectedWijk.naam !== "" && buurtenIsLoading ?
                         <img src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
@@ -55,7 +60,7 @@ export const DetailPage: React.FC<DetailPageProps> = ({
                             <li className={styles.item} key={i}>{buurt.naam}</li>
                         ))}
                 </ul>
-            </div>
+            </section>
         </main>
     );
 }
