@@ -1,6 +1,7 @@
 .container {
     position: relative;
 }
+
 .dropdown {
     display: flex;
     justify-content: space-between;
@@ -26,8 +27,8 @@
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
-        background-color: #FFFFFF;
+    width: 22.2rem;
+    background-color: #FFFFFF;
 }
 
 .dropdown.open {
@@ -51,6 +52,5 @@
 }
 
 .rotated {
-    transform: rotate(180deg); 
+    transform: rotate(180deg);
 }
-

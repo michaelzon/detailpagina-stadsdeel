@@ -1,19 +1,25 @@
 .main {
     background-color: white;
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: flex-start;
+    flex-direction: row;
+    gap: 4rem;
+    align-items: stretch;
     margin-top: 2rem;
     margin-left: 1.5rem;
+    margin-right: 1.5rem;
     flex-grow: 1;
+    min-height: 100%;
 }
 
 .description {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 1rem;
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-shrink: 1;
+    border-right: solid 2px #E5E5E5
 }
 
 .description h1 {
@@ -29,7 +35,7 @@
 }
 
 .description .wrapper {
-    border-bottom: 3px solid #F4F4F4
+    /* border-bottom: 3px solid #F4F4F4 */
 }
 
 .codeContainer h3 {
@@ -42,6 +48,10 @@
 .interactiveSection {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-shrink: 1;
+    border-right: solid 2px #E5E5E5
 }
 
 .interactiveSection h2 {
@@ -52,12 +62,18 @@
     color: #004699
 }
 
-.interactiveSection h3 {
-    font-size: 1rem;
+.listSection {
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-shrink: 1;
+}
+
+.listSection h2 {
+    font-size: 1.25rem;
     line-height: 1.4;
-    margin-bottom: 0.4rem;
-    margin-top: 1.6rem;
-    color: #004699
+    margin-bottom: 1.4rem;
+    margin-top: 0.8rem;
+    color: #004699;
 }
 
 .list { 
@@ -72,3 +88,4 @@
 .skeleton {
     padding-bottom: 4rem;
 }
+

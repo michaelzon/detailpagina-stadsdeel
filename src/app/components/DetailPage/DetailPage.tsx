@@ -31,6 +31,7 @@ export const DetailPage: React.FC<DetailPageProps> = ({
 
     return (
         <main className={styles.main}>
+
             <section className={styles.description}>
                 <div className={styles.wrapper}>
                     <h1> Stadsdeel </h1>
@@ -41,6 +42,7 @@ export const DetailPage: React.FC<DetailPageProps> = ({
                     {stadsdeelCode && <span className={styles.code}>{stadsdeelCode}</span>}
                 </div>
             </section>
+
             <section className={styles.interactiveSection}>
                 <h2> Wijken </h2>
                 <Dropdown onSelect={handleSelect} items={wijken}>
@@ -52,16 +54,20 @@ export const DetailPage: React.FC<DetailPageProps> = ({
                             ))}
                     </Dropdown.List>
                 </Dropdown>
-                <h3> Buurten </h3>
+            </section>
+
+            <section className={styles.listSection}>
+                <h2> Buurten </h2>
                 <ul className={styles.list}>
                     {selectedWijk.naam !== "" && buurtenIsLoading ?
-                        <Image width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton}/>
+                        <Image width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
                         :
                         buurten.map((buurt: Buurt, i: number) => (
                             <li className={styles.item} key={i}>{buurt.naam}</li>
                         ))}
                 </ul>
             </section>
+
         </main>
     );
 }
