@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import styles from './DetailPage.module.css'
-import Card from '../Card/Card';
 import { Buurt, Wijk } from '@/app/types/gebiedenTypes';
 
 interface DetailPageProps {
@@ -23,6 +21,7 @@ export const DetailPage: React.FC<DetailPageProps> = ({
     stadsdeelCode,
     handleSelect
 }) => {
+
 
     return (
         <main className={styles.main}>
@@ -49,16 +48,14 @@ export const DetailPage: React.FC<DetailPageProps> = ({
                 </Dropdown>
                 <h4> Buurten </h4>
                 <ul className={styles.list}>
-                    {buurtenIsLoading ? <p> buurten are loading... </p> :
+                    {selectedWijk.naam !== "" && buurtenIsLoading ?
+                        <img src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
+                        :
                         buurten.map((buurt: Buurt, i: number) => (
                             <li className={styles.item} key={i}>{buurt.naam}</li>
                         ))}
                 </ul>
             </div>
-            <Card isOpen={true}>
-                <Card.Title title='bla'></Card.Title>
-                <Card.Description description='bla'></Card.Description>
-            </Card>
         </main>
     );
 }
