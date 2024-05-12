@@ -1,5 +1,6 @@
 .container {
     position: relative;
+    padding-right: 1rem;
 }
 
 .dropdown {
@@ -8,7 +9,7 @@
     align-items: center;
     width: 20rem;
     height: 3rem;
-    font-size: 18px;
+    font-size: 16px;
     border: 1px solid #004699;
     padding: .5rem 1rem .5rem 1rem;
     gap: 1.2rem;
@@ -22,8 +23,6 @@
     border-style: solid;
     border-width: 0 2px 2px;
     border-color: #004699;
-    max-height: 20rem;
-    overflow: scroll;
     position: absolute;
     top: 100%;
     left: 0;
@@ -37,9 +36,10 @@
 
 .item {
     display: flex;
-    padding: .5rem 1.5rem;
+    padding: .2rem 1.5rem;
     color: #004699;
     line-height: 1.8rem;
+    font-size: 14px;
 }
 
 .notSelected {

@@ -1,7 +1,6 @@
 import React, { useState, createContext, useContext, KeyboardEvent, useEffect, useRef } from 'react';
 import styles from './Dropdown.module.css'
 import { DropdownComponent, DropdownContextProps, ListProps, ItemProps, ToggleProps } from '@/app/types/dropdownTypes'
-import Image from 'next/image';
 
 const DropdownContext = createContext<DropdownContextProps>({
     isOpen: false,
@@ -103,7 +102,7 @@ const Toggle: React.FC<ToggleProps> = ({ label }) => {
     return (
         <button className={`${styles.dropdown} ${isOpen ? styles.open : ''}`} onClick={toggle} aria-haspopup={"true"} aria-expanded={isOpen} aria-controls={"dropdown-menu"} >
             <span className={`${itemIsSelected ? '' : styles.notSelected}`}> {itemIsSelected ? `${selectedItem.naam}` : `Selecteer ${label}`} </span>
-            <Image height={16} width={16} src={"arrow-down.svg"} alt={""} className={`${isOpen ? styles.rotated : ''}`} />
+            <img height={16} width={16} src={"arrow-down.svg"} alt={""} className={`${isOpen ? styles.rotated : ''}`} />
         </button>
     )
 };
