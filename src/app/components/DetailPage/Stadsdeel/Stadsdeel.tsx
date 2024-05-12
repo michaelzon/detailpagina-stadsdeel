@@ -10,7 +10,7 @@ export const Stadsdeel: React.FC<StadsdeelProps> = ({
 }) => {
 
     return (
-        <section className={styles.description}>
+        <section className={styles.beginSection}>
             <h1> Stadsdeel </h1>
             <h2> Nieuw-West </h2>
             <h3> Code </h3>

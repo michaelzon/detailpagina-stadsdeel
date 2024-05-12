@@ -4,7 +4,8 @@
     flex-grow: 1;
     flex-basis: 0;
     flex-shrink: 1;
-    border-right: solid 2px #E5E5E5
+    border-right: solid 2px #E5E5E5;
+    padding-top: 1.4rem;
 }
 
 .interactiveSection h2 {
@@ -19,8 +20,8 @@
     .interactiveSection {
         flex-direction: column;
         border-right: 0;
-        border-bottom: solid 2px #E5E5E5
-
+        border-bottom: solid 2px #E5E5E5;
+        padding-top: 0rem;
     }
   }
   

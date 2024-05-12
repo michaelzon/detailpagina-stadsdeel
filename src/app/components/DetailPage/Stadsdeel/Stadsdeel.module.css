@@ -1,4 +1,4 @@
-.description {
+.beginSection {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 830px) {
-    .description {
+    .beginSection {
         flex-direction: column;
         border-right: 0;
         border-bottom: solid 2px #E5E5E5
@@ -17,26 +17,26 @@
   }
 
 @media (max-width: 600px) {
-    .description {
+    .beginSection {
         flex-direction: column;
         border-right: 0; 
         border-bottom: 0;
     }
   }
 
-.description h1 {
+.beginSection h1 {
     color: #004699;
     font-size: 1.125rem;
     line-height: 1.4;
 }
 
-.description h2 {
+.beginSection h2 {
     font-size: 1.875rem;
     line-height: 1.25;
     padding-bottom: 0.8rem;
 }
 
-.description h3 {
+.beginSection h3 {
     margin-top: 1rem;
     margin-bottom: 0.4rem;
     padding: 0;

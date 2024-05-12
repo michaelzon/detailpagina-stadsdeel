@@ -21,19 +21,32 @@ export const Buurten: React.FC<BuurtenProps> = ({
     }
 
     return (
-        <section className={styles.listSection}>
-            {selectedWijk.naam !== "" && <h2> Buurten </h2>}
-            <ul className={styles.list}>
-                {selectedWijk.naam !== "" && buurtenIsLoading ?
-                    <img width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
-                    :
-                    buurten.map((buurt: Buurt, i: number) => (
-                        <li className={styles.item} key={i}>{buurt.naam}</li>
-                    ))}
-            </ul>
-        </section>
+        <>
+            {/* <section className={styles.listSection}>
+                {selectedWijk.naam !== "" && <h2> Buurten </h2>}
+                <ul className={styles.list}>
+                    {selectedWijk.naam !== "" && buurtenIsLoading ?
+                        <img width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
+                        :
+                        buurten.map((buurt: Buurt, i: number) => (
+                            <li className={styles.item} key={i}>{buurt.naam}</li>
+                        ))}
+                </ul>
+            </section> */}
+            <section className={styles.endSection}>
+                {selectedWijk.naam !== "" &&
+                    <Card isOpen={true}>
+                        <Card.Title title={'Buurten'} />
+                        <Card.Description description={`De volgende buurten liggen in ${selectedWijk.naam}:`} />
+                        {buurtenIsLoading ?
+                            <img width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
+                            :
+                            <Card.UnorderedList items={buurten} />
+                        }
+                    </Card>
+                }
+            </section>
+
+        </>
     )
 }
-
-
-

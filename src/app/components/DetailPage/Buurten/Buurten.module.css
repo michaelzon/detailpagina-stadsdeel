@@ -1,24 +1,14 @@
-.listSection {
+.endSection {
     flex-grow: 1;
     flex-basis: 0;
     flex-shrink: 1;
+    padding-top: 1.6rem;
 }
 
-.listSection h2 {
-    font-size: 1.25rem;
-    line-height: 1.4;
-    margin-bottom: 1.4rem;
-    margin-top: 0.8rem;
-    color: #004699;
-}
-
-.list { 
-    list-style-type: square;
-    margin-left: 0.9rem;
-}
-
-.item {
-    margin-bottom: 0.2rem;
+@media (max-width: 830px) {
+    .endSection {
+        padding-top: 0rem;
+    }
 }
 
 .skeleton {

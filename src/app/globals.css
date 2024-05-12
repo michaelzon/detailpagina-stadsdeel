@@ -23,9 +23,9 @@ button {
   all: unset;
 }
 
-button:focus {
-  outline: revert;
-}
+/* button:focus { */
+  /* outline: revert; */
+/* } */
 
 body {
   color: rgb(var(--foreground-rgb));
