@@ -15,6 +15,10 @@ interface DescriptionProps {
     description: string;
 };
 
+interface UnorderedListProps {
+    items: object[];
+};
+
 interface FooterProps {
     text: string;
     handleClose: () => void;
@@ -49,6 +53,12 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
         <p> {description} </p>
     )
 };
+
+// const UnorderedList: React.FC<UnorderedListProps> = ({ items }) => {
+//     return (
+        
+//     )
+// }
 
 const Footer: React.FC<FooterProps> = ({ text, handleClose }) => {
     return (

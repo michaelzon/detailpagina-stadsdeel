@@ -20,7 +20,7 @@ export const Wijken: React.FC<WijkenProps> = ({
                 <Dropdown.Toggle label={"wijk"} />
                 <Dropdown.List>
                     {wijken.map((wijk: Wijk, i: number) => (
-                        <Dropdown.Item key={i} index={i} item={wijk}></Dropdown.Item>
+                        <Dropdown.Item key={i} index={i} item={wijk}/>
                     ))}
                 </Dropdown.List>
             </Dropdown>

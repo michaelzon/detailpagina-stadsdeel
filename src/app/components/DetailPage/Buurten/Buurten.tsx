@@ -1,3 +1,4 @@
+import Card from '../../Card/Card';
 import styles from './Buurten.module.css'
 import { Buurt, Wijk } from '@/app/types/gebiedenTypes';
 
@@ -21,7 +22,7 @@ export const Buurten: React.FC<BuurtenProps> = ({
 
     return (
         <section className={styles.listSection}>
-            <h2> Buurten </h2>
+            {selectedWijk.naam !== "" && <h2> Buurten </h2>}
             <ul className={styles.list}>
                 {selectedWijk.naam !== "" && buurtenIsLoading ?
                     <img width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
