@@ -5,8 +5,13 @@ import styles from './Card.module.css'
 
 interface CardProps {
     isOpen: boolean;
+    type: "warning";
     children?: ReactNode;
 };
+
+interface IconProps {
+    src: string;
+}
 
 interface TitleProps {
     title: string;
@@ -16,36 +21,37 @@ interface DescriptionProps {
     description: string;
 };
 
-interface UnorderedListProps {
-    items: object[];
-};
-
-interface FooterProps {
-    text: string;
+interface ButtonProps {
     handleClose: () => void;
 };
 
 interface CardComponent extends React.FC<CardProps> {
+    Icon: React.FC<IconProps>;
     Title: React.FC<TitleProps>;
     Description: React.FC<DescriptionProps>;
-    UnorderedList: React.FC<UnorderedListProps>;
-    Footer: React.FC<FooterProps>;
+    Button: React.FC<ButtonProps>;
 };
 
-const CardContext = createContext<CardProps>({ isOpen: false });
+const CardContext = createContext<CardProps>({ isOpen: false, type: "warning"});
 
-const Card: CardComponent = ({ isOpen, children }) => {
+const Card: CardComponent = ({ isOpen, type, children }) => {
     return (
-        <CardContext.Provider value={{ isOpen }}>
+        <CardContext.Provider value={{ isOpen, type }}>
             {isOpen && (
-                <div className={styles.container}> {children} </div>)}
+                <div className={`${styles.container} ${type === 'warning' ? styles.warning : ''}`}> {children} </div>)}
         </CardContext.Provider>
+    )
+};
+
+const Icon: React.FC<IconProps> = ({ src }) => {
+    return (
+        <img height={36} width={36} src={src} alt={""}/>
     )
 };
 
 const Title: React.FC<TitleProps> = ({ title }) => {
     return (
-        <h3> {title} </h3>
+        <h1> {title} </h1>
     )
 };
 
@@ -55,25 +61,15 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
     )
 };
 
-const UnorderedList: React.FC<UnorderedListProps> = ({ items }) => {
+const Button: React.FC<ButtonProps> = ({ handleClose }) => {
     return (
-        <ul className={styles.list}>
-            {items.map((item: any, i: number) => (
-                <li className={styles.item} key={i}>{item.naam}</li>
-            ))}
-        </ul>
-    )
-}
-
-const Footer: React.FC<FooterProps> = ({ text, handleClose }) => {
-    return (
-        <button onClick={handleClose}>{text}</button>
+        <button onClick={handleClose} aria-label={'Close'}><img height={36} width={36} src={'cross.svg'} alt={"Close"}/></button>
     )
 };
 
+Card.Icon = Icon;
 Card.Title = Title;
 Card.Description = Description;
-Card.UnorderedList = UnorderedList;
-Card.Footer = Footer;
+Card.Button = Button;
 
 export default Card;

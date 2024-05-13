@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Card from '../../Card/Card';
 import styles from './Buurten.module.css'
 import { Buurt, Wijk } from '@/app/types/gebiedenTypes';
@@ -16,37 +17,43 @@ export const Buurten: React.FC<BuurtenProps> = ({
     buurtenError
 }) => {
 
-    if (buurtenError) {
-        return <div> Error: {buurtenError} </div>
+    const [open, setOpen] = useState<boolean>(true);
+
+    const handleCloseError = () => {
+        setOpen(!open)
     }
 
+    if (buurtenError) {
+        return (
+            <Card isOpen={open} type='warning'>
+                <Card.Icon src={"warning.svg"} />
+                <div className={styles.textWrapper}>
+                    <Card.Title title={'Error'} />
+                    <Card.Description description={buurtenError} />
+                </div>
+                <Card.Button handleClose={handleCloseError} />
+            </Card>
+        )
+    }
+
+    console.log('buurten', buurten);
+
     return (
-        <>
-            {/* <section className={styles.listSection}>
-                {selectedWijk.naam !== "" && <h2> Buurten </h2>}
-                <ul className={styles.list}>
-                    {selectedWijk.naam !== "" && buurtenIsLoading ?
-                        <img width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
-                        :
-                        buurten.map((buurt: Buurt, i: number) => (
-                            <li className={styles.item} key={i}>{buurt.naam}</li>
-                        ))}
-                </ul>
-            </section> */}
-            <section className={styles.endSection}>
-                {selectedWijk.naam !== "" &&
-                    <Card isOpen={true}>
-                        <Card.Title title={'Buurten'} />
-                        <Card.Description description={`De volgende buurten liggen in ${selectedWijk.naam}:`} />
-                        {buurtenIsLoading ?
+        <section className={styles.endSection}>
+            {selectedWijk.naam && (
+                <>
+                    <h2> Buurten </h2>
+                    <p> {`De volgende buurten liggen in ${selectedWijk.naam}:`}</p>
+                    <ul className={styles.list}>
+                        {selectedWijk.naam !== "" && buurtenIsLoading ?
                             <img width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
                             :
-                            <Card.UnorderedList items={buurten} />
-                        }
-                    </Card>
-                }
-            </section>
-
-        </>
+                            buurten.map((buurt: Buurt, i: number) => (
+                                <li className={styles.item} key={i}>{buurt.naam}</li>
+                            ))}
+                    </ul>
+                </>
+            )}
+        </section>
     )
 }

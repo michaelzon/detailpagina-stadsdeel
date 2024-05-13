@@ -14,3 +14,35 @@
 .skeleton {
     padding-bottom: 4rem;
 }
+
+.endSection p {
+    text-wrap: wrap;
+    text-align: left;
+}
+
+.endSection h2 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-bottom: 1.4rem;
+    margin-top: 0.8rem;
+    color: #004699;
+}
+
+.list {
+    margin-top: 0.8rem;
+    list-style-type: square;
+    margin-left: 0.9rem;
+}
+
+.item {
+    margin-bottom: 0.4rem;
+}
+
+.skeleton {
+    padding-bottom: 4rem;
+}
+
+.textWrapper {
+    display: flex;
+    flex-direction: column;
+}

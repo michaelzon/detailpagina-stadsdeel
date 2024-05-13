@@ -23,7 +23,7 @@ export const DetailPage: React.FC<DetailPageProps> = ({
     handleSelect,
     buurtenError
 }) => {
-
+    
     return (
         <main className={styles.main}>
             <Stadsdeel stadsdeelCode={stadsdeelCode} />

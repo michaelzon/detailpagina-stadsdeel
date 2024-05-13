@@ -13,21 +13,3 @@ export async function getBuurtenData(id: string) {
         throw error;
     }
 }
-
-// useEffect(() => {
-//   const fetchBuurten = async () => {
-//     if (selectedWijk.identificatie) {
-//       setBuurtenIsLoading(true);
-//       try {
-//         const res = await fetch(`https://api.data.amsterdam.nl/v1/gebieden/buurten/?ligtInWijk.identificatie=${selectedWijk.identificatie}`);
-//         const data = await res.json();
-//         setBuurten(data['_embedded'].buurten);
-//       } catch (error) {
-//         console.error('Error in fetching data:', error);
-//       }
-//       setBuurtenIsLoading(false);
-//     }
-//   };
-
-//   fetchBuurten();
-// }, [selectedWijk]);

@@ -24,17 +24,24 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
     useEffect(() => {
         setStadsdeelCode(stadsdeelData.code);
         setWijken(wijkenData);
-    }, [stadsdeelData.code, wijkenData]); 
+    }, [stadsdeelData.code, wijkenData]);
 
     const handleSelect = (item: Wijk) => {
+        console.log('gaat door handle select heen voor wijk.')
         setSelectedWijk(item);
     };
 
     useEffect(() => {
         async function fetchBuurten() {
             setBuurtenIsLoading(true);
+            
+            // only fetch new buurten when wijk is fully loaded
+            if (!selectedWijk.identificatie) {
+                return;
+            }
             try {
                 const buurtenData = await getBuurtenData(selectedWijk.identificatie);
+                // setBuurten(prevBuurten => [...prevBuurten, buurtenData])
                 setBuurten(buurtenData);
             } catch (error: any) {
                 setBuurtenError("Niet gelukt om buurten op te halen. Probeer het later nog een keer.");
