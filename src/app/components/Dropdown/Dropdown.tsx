@@ -1,17 +1,16 @@
 import React, { useState, createContext, useContext, KeyboardEvent, useEffect, useRef } from 'react';
 import styles from './Dropdown.module.css'
-import { DropdownComponent, DropdownContextProps, ListProps, ItemProps, ToggleProps } from '@/app/types/dropdownTypes'
+import { DropdownComponent, DropdownContextProps, ListProps, ItemProps, ToggleProps, DataObj } from '@/app/types/dropdownTypes'
 
+// using create context so we avoid prop drilling
 const DropdownContext = createContext<DropdownContextProps>({
     isOpen: false,
-    toggle: () => { },
+    toggle: () => {},
     highlightedIndex: 0,
     itemIsSelected: false,
     selectedItem: { naam: '', identificatie: '' },
-    setHighlightedIndex: () => { },
-    onSelect: () => { },
-    handleSelect: () => { },
-    children: ''
+    setHighlightedIndex: () => {},
+    handleSelect: () => {},
 });
 
 const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
@@ -23,7 +22,7 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
     const close = () => setIsOpen(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const handleSelect = (item: any) => {
+    const handleSelect = (item: DataObj) => {
         setSelectedItem(item);
         setItemIsSelected(true);
         onSelect(item);
@@ -38,8 +37,6 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
         selectedItem,
         setHighlightedIndex,
         handleSelect,
-        onSelect,
-        children
     };
 
     const highLightNext = () => {
@@ -50,6 +47,7 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
         setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : prev));
     }
 
+    // keyboard navigation for accessibility. it also highlightes the items and prevents default behaviour for arrow keys
     const handleKeyDown = (e: KeyboardEvent) => {
         switch (e.key) {
             case "ArrowDown":
@@ -73,13 +71,16 @@ const Dropdown: DropdownComponent = ({ items, onSelect, children }) => {
         }
     }
 
+    // ensure the dropdown closes when clicked outside of the element
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
+            // check if the dropdown is currently referenced and the click target is not within the dropdown
             if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
                 setIsOpen(false);
             }
         };
 
+        // add event listener to the document that fires handleClickOutside after a mouse down event.
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -100,9 +101,23 @@ const Toggle: React.FC<ToggleProps> = ({ label }) => {
     const { isOpen, toggle, itemIsSelected, selectedItem } = useContext(DropdownContext);
 
     return (
-        <button className={`${styles.dropdown} ${isOpen ? styles.open : ''}`} onClick={toggle} aria-haspopup={"true"} aria-expanded={isOpen} aria-controls={"dropdown-menu"} >
-            <span className={`${itemIsSelected ? '' : styles.notSelected}`}> {itemIsSelected ? `${selectedItem.naam}` : `Selecteer ${label}`} </span>
-            <img height={16} width={16} src={"arrow-down.svg"} alt={""} className={`${isOpen ? styles.rotated : ''}`} />
+        <button
+            className={`${styles.dropdown} ${isOpen ? styles.open : ''}`}
+            onClick={toggle}
+            aria-haspopup={"true"}
+            aria-expanded={isOpen}
+            aria-controls={"dropdown-menu"}
+        >
+            <span className={`${itemIsSelected ? '' : styles.notSelected}`}>
+                {itemIsSelected ? `${selectedItem.naam}` : `Selecteer ${label}`}
+            </span>
+            <img
+                height={16}
+                width={16}
+                src={"arrow-down.svg"}
+                alt={""}
+                className={`${isOpen ? styles.rotated : ''}`}
+            />
         </button>
     )
 };
@@ -112,7 +127,7 @@ const List: React.FC<ListProps> = ({ children }) => {
     return isOpen ? <ul className={styles.list} id={"dropdown-menu"} role={"menu"}>{children}</ul> : null;
 };
 
-const Item: React.FC<ItemProps> = ({ item, index }) => {
+const Item: React.FC<ItemProps> = ({ item, index, label }) => {
     const { handleSelect, highlightedIndex } = useContext(DropdownContext);
     const isHighlighted = index === highlightedIndex;
 
@@ -120,7 +135,7 @@ const Item: React.FC<ItemProps> = ({ item, index }) => {
         <li className={`${styles.item} ${isHighlighted ? styles.highlighted : ''}`}
             onClick={() => handleSelect(item)}
             role={"menuitem"}>
-            {item.naam}
+            {label}
         </li>
     )
 }
@@ -130,4 +145,3 @@ Dropdown.List = List;
 Dropdown.Item = Item;
 
 export default Dropdown;
-

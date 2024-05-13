@@ -3,14 +3,14 @@
 import { getStadsdeelData } from "./api/getStadsdeelData";
 import { getWijkenData } from "./api/getWijkenData";
 import { AppContainer } from "./components/AppContainer/AppContainer";
-import { Stadsdeel } from "./types/gebiedenTypes";
+import { StadsdeelType } from "./types/gebiedenTypes";
 
 export default async function Home() {
-  const stadsdeelData: Stadsdeel = await getStadsdeelData();
-  const id = stadsdeelData.id;
+  const stadsdeelData: StadsdeelType = await getStadsdeelData();
+  const id = stadsdeelData.identificatie;
   const wijkenData = await getWijkenData(id)
 
   return (
-    <AppContainer stadsdeelData={stadsdeelData} wijkenData={wijkenData}></AppContainer>
+    <AppContainer stadsdeelData={stadsdeelData} wijkenData={wijkenData}/>
   );
 }

@@ -1,5 +1,3 @@
-'use client'
-
 import React, { ReactNode, createContext } from 'react';
 import styles from './Card.module.css'
 
@@ -32,20 +30,23 @@ interface CardComponent extends React.FC<CardProps> {
     Button: React.FC<ButtonProps>;
 };
 
-const CardContext = createContext<CardProps>({ isOpen: false, type: "warning"});
+const CardContext = createContext<CardProps>({ isOpen: false, type: "warning" });
 
 const Card: CardComponent = ({ isOpen, type, children }) => {
     return (
         <CardContext.Provider value={{ isOpen, type }}>
             {isOpen && (
-                <div className={`${styles.container} ${type === 'warning' ? styles.warning : ''}`}> {children} </div>)}
+                <div className={`${styles.container} ${type === 'warning' ? styles.warning : ''}`}>
+                    {children}
+                </div>
+            )}
         </CardContext.Provider>
     )
 };
 
 const Icon: React.FC<IconProps> = ({ src }) => {
     return (
-        <img height={36} width={36} src={src} alt={""}/>
+        <img height={36} width={36} src={src} alt={""} />
     )
 };
 
@@ -63,7 +64,9 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
 
 const Button: React.FC<ButtonProps> = ({ handleClose }) => {
     return (
-        <button onClick={handleClose} aria-label={'Close'}><img height={36} width={36} src={'cross.svg'} alt={"Close"}/></button>
+        <button onClick={handleClose} aria-label={'Close'}>
+            <img height={36} width={36} src={'cross.svg'} alt={"Close"} />
+        </button>
     )
 };
 

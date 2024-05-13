@@ -1,5 +1,6 @@
-export interface Stadsdeel {
-    id: string;
+export interface StadsdeelType {
+    identificatie: string;
+    naam: string;
     code: string;
   };
 

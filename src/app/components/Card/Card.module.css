@@ -6,7 +6,7 @@
   padding: 0.8rem;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  justify-content: space-between;
 }
 
 .warning {
@@ -42,18 +42,4 @@
 
 .container img {
   margin-bottom: 3rem;
-}
-
-.list {
-  margin-top: 0.8rem;
-  list-style-type: square;
-  margin-left: 0.9rem;
-}
-
-.item {
-  margin-bottom: 0.4rem;
-}
-
-.skeleton {
-  padding-bottom: 4rem;
 }

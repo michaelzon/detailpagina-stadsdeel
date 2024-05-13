@@ -10,22 +10,17 @@ interface BuurtenProps {
     buurtenError: string | null;
 }
 
-export const Buurten: React.FC<BuurtenProps> = ({
-    selectedWijk,
-    buurten,
-    buurtenIsLoading,
-    buurtenError
-}) => {
-
+export const Buurten: React.FC<BuurtenProps> = ({ selectedWijk, buurten, buurtenIsLoading, buurtenError }) => {
     const [open, setOpen] = useState<boolean>(true);
 
+    // switching the boolean state directly using the previous state
     const handleCloseError = () => {
-        setOpen(!open)
+        setOpen(prevOpen => !prevOpen);
     }
 
     if (buurtenError) {
         return (
-            <Card isOpen={open} type='warning'>
+            <Card isOpen={open} type={'warning'}>
                 <Card.Icon src={"warning.svg"} />
                 <div className={styles.textWrapper}>
                     <Card.Title title={'Error'} />
@@ -42,14 +37,20 @@ export const Buurten: React.FC<BuurtenProps> = ({
         <section className={styles.endSection}>
             {selectedWijk.naam && (
                 <>
-                    <h2> Buurten </h2>
-                    <p> {`De volgende buurten liggen in ${selectedWijk.naam}:`}</p>
+                    <h2>Buurten</h2>
+                    <p>{`De volgende buurten liggen in ${selectedWijk.naam}:`}</p>
                     <ul className={styles.list}>
-                        {selectedWijk.naam !== "" && buurtenIsLoading ?
-                            <img width={300} height={300} src="skeleton-loader.svg" alt="buurten zijn aan het laden..." className={styles.skeleton} />
+                        {buurtenIsLoading ?
+                            <img
+                                width={300}
+                                height={300}
+                                src={"skeleton-loader.svg"}
+                                alt={"buurten zijn aan het laden..."}
+                                className={styles.skeleton}
+                            />
                             :
-                            buurten.map((buurt: Buurt, i: number) => (
-                                <li className={styles.item} key={i}>{buurt.naam}</li>
+                            buurten.map((buurt: Buurt) => (
+                                <li className={styles.item} key={buurt.identificatie}> {buurt.naam} </li>
                             ))}
                     </ul>
                 </>

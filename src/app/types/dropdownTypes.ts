@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, ReactNode, FC } from 'react';
 
 export interface DropdownProps {
     items: DataObj[];
-    onSelect: (item: any) => void;
+    onSelect: (item: DataObj) => void;
     children: ReactNode;
 };
 
@@ -23,6 +23,7 @@ export interface ItemProps {
     item: DataObj;
     index: number;
     isHighlighted?: boolean;
+    label: string;
 };
 
 export interface DropdownComponent extends FC<DropdownProps> {
@@ -38,7 +39,5 @@ export interface DropdownContextProps {
     itemIsSelected: boolean;
     selectedItem: DataObj;
     setHighlightedIndex: Dispatch<SetStateAction<number>>;
-    onSelect: (item: any) => void;
-    handleSelect: (object: any) => void;
-    children: ReactNode;
+    handleSelect: (object: DataObj) => void;
 }

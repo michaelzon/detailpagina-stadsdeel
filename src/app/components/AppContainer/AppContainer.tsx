@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Wijk, Buurt, Stadsdeel } from "@/app/types/gebiedenTypes";
+import { Wijk, Buurt, StadsdeelType } from "@/app/types/gebiedenTypes";
 import { DetailPage } from "../DetailPage/DetailPage";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -9,11 +9,12 @@ import styles from './AppContainer.module.css'
 import { getBuurtenData } from "@/app/api/getBuurtenData";
 
 interface AppContainerProps {
-    stadsdeelData: Stadsdeel;
+    stadsdeelData: StadsdeelType;
     wijkenData: Wijk[];
 }
 
 export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijkenData }) => {
+    const [stadsdeel, setStadsdeel] = useState<StadsdeelType>({ identificatie: '', naam: '', code: '' });
     const [wijken, setWijken] = useState<Wijk[]>([]);
     const [selectedWijk, setSelectedWijk] = useState<Wijk>({ identificatie: '', naam: '' });
     const [buurten, setBuurten] = useState<Buurt[]>([]);
@@ -22,19 +23,18 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
     const [buurtenError, setBuurtenError] = useState<string | null>(null);
 
     useEffect(() => {
-        setStadsdeelCode(stadsdeelData.code);
+        setStadsdeel(stadsdeelData);
         setWijken(wijkenData);
-    }, [stadsdeelData.code, wijkenData]);
+    }, [wijkenData]);
 
     const handleSelect = (item: Wijk) => {
-        console.log('gaat door handle select heen voor wijk.')
         setSelectedWijk(item);
     };
 
     useEffect(() => {
         async function fetchBuurten() {
             setBuurtenIsLoading(true);
-            
+
             // only fetch new buurten when wijk is fully loaded
             if (!selectedWijk.identificatie) {
                 return;
@@ -56,11 +56,11 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
         <div className={styles.container}>
             <Header />
             <DetailPage
-                wijken={wijken}
+                stadsdeelData={stadsdeel}
+                wijkenData={wijken}
                 selectedWijk={selectedWijk}
                 buurten={buurten}
                 buurtenIsLoading={buurtenIsLoading}
-                stadsdeelCode={stadsdeelCode}
                 handleSelect={handleSelect}
                 buurtenError={buurtenError}
             />
