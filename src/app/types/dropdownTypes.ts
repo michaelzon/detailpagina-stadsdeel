@@ -23,6 +23,7 @@ export interface ItemProps {
     item: DataObj;
     index: number;
     isHighlighted?: boolean;
+    label: string;
 };
 
 export interface DropdownComponent extends FC<DropdownProps> {

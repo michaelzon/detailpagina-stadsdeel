@@ -1,34 +1,64 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Wijk, Buurt, Stadsdeel } from "@/app/types/gebiedenTypes";
+import { Wijk, Buurt, StadsdeelType } from "@/app/types/gebiedenTypes";
 import { DetailPage } from "../DetailPage/DetailPage";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import styles from './AppContainer.module.css'
 import { getBuurtenData } from "@/app/api/getBuurtenData";
+import { getStadsdeelData } from "@/app/api/getStadsdeelData";
+import { getWijkenData } from "@/app/api/getWijkenData";
 
 interface AppContainerProps {
-    stadsdeelData: Stadsdeel;
-    wijkenData: Wijk[];
+    stadsdelenData: any;
+    // stadsdeelData: StadsdeelType;
+    // wijkenData: Wijk[];
 }
 
-export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijkenData }) => {
+export const AppContainer: React.FC<AppContainerProps> = ({ stadsdelenData, 
+    // stadsdeelData,
+    //  wijkenData
+     }) => {
+    const [selectedStadsdeel, setSelectedStadsdeel] = useState<StadsdeelType>({ naam: '', code: '', identificatie: '' })
     const [wijken, setWijken] = useState<Wijk[]>([]);
+    const [wijkenIsLoading, setWijkenIsLoading] = useState<boolean>(false);
+    const [wijkenError, setWijkenError] = useState<string>("");
     const [selectedWijk, setSelectedWijk] = useState<Wijk>({ identificatie: '', naam: '' });
     const [buurten, setBuurten] = useState<Buurt[]>([]);
     const [buurtenIsLoading, setBuurtenIsLoading] = useState<boolean>(false);
-    const [stadsdeelCode, setStadsdeelCode] = useState<string>('');
-    const [buurtenError, setBuurtenError] = useState<string | null>(null);
+    const [buurtenError, setBuurtenError] = useState<string>("");
 
-    useEffect(() => {
-        setStadsdeelCode(stadsdeelData.code);
-        setWijken(wijkenData);
-    }, [stadsdeelData.code, wijkenData]); 
+    // useEffect(() => {
+    //     setSelectedStadsdeel(stadsdeelData)
+    //     setWijken(wijkenData);
+    // }, [stadsdeelData.code, wijkenData]);
 
-    const handleSelect = (item: Wijk) => {
+    const handleSelectStadsdeel = (item: StadsdeelType) => {
+        setSelectedStadsdeel(item)
+    }
+
+    const handleSelectWijken = (item: Wijk) => {
         setSelectedWijk(item);
     };
+
+    console.log(selectedStadsdeel);
+
+    useEffect(() => {
+        async function fetchWijken() {
+            setWijkenIsLoading(true);
+            try {
+                console.log('hupsakee');
+                const wijkenData = await getWijkenData(selectedStadsdeel.identificatie);
+                setWijken(wijkenData);
+            } catch (error: any) {
+                setWijkenError("Niet gelukt om wijken op te halen. Probeer het later nog een keer.");
+                console.error("Ophalen van buurten mislukt", error.message)
+            }
+            setWijkenIsLoading(false);
+        }
+        fetchWijken();
+    }, [selectedStadsdeel]);
 
     useEffect(() => {
         async function fetchBuurten() {
@@ -49,12 +79,15 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
         <div className={styles.container}>
             <Header />
             <DetailPage
+                selectedStadsdeel={selectedStadsdeel}
+                stadsdelen={stadsdelenData}
                 wijken={wijken}
                 selectedWijk={selectedWijk}
+                wijkenIsLoading={wijkenIsLoading}
                 buurten={buurten}
                 buurtenIsLoading={buurtenIsLoading}
-                stadsdeelCode={stadsdeelCode}
-                handleSelect={handleSelect}
+                handelSelectStadsdeel={handleSelectStadsdeel}
+                handleSelectWijken={handleSelectWijken}
                 buurtenError={buurtenError}
             />
             <Footer />

@@ -101,7 +101,7 @@ const Toggle: React.FC<ToggleProps> = ({ label }) => {
 
     return (
         <button className={`${styles.dropdown} ${isOpen ? styles.open : ''}`} onClick={toggle} aria-haspopup={"true"} aria-expanded={isOpen} aria-controls={"dropdown-menu"} >
-            <span className={`${itemIsSelected ? '' : styles.notSelected}`}> {itemIsSelected ? `${selectedItem.naam}` : `Selecteer ${label}`} </span>
+            <span className={`${itemIsSelected ? '' : styles.notSelected}`}> {itemIsSelected ? `${selectedItem.naam}` : `${label}`} </span>
             <img height={16} width={16} src={"arrow-down.svg"} alt={""} className={`${isOpen ? styles.rotated : ''}`} />
         </button>
     )
@@ -112,7 +112,7 @@ const List: React.FC<ListProps> = ({ children }) => {
     return isOpen ? <ul className={styles.list} id={"dropdown-menu"} role={"menu"}>{children}</ul> : null;
 };
 
-const Item: React.FC<ItemProps> = ({ item, index }) => {
+const Item: React.FC<ItemProps> = ({ item, index, label }) => {
     const { handleSelect, highlightedIndex } = useContext(DropdownContext);
     const isHighlighted = index === highlightedIndex;
 
@@ -120,7 +120,7 @@ const Item: React.FC<ItemProps> = ({ item, index }) => {
         <li className={`${styles.item} ${isHighlighted ? styles.highlighted : ''}`}
             onClick={() => handleSelect(item)}
             role={"menuitem"}>
-            {item.naam}
+            {label}
         </li>
     )
 }

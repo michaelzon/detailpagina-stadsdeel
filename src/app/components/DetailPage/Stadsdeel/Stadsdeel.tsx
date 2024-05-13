@@ -1,12 +1,18 @@
 
+import { StadsdeelType } from '@/app/types/gebiedenTypes';
 import styles from './Stadsdeel.module.css'
+import Dropdown from '../../Dropdown/Dropdown';
 
 interface StadsdeelProps {
-    stadsdeelCode: string;
+    selectedStadsdeel: StadsdeelType;
+    stadsdelen: StadsdeelType[];
+    handleSelectStadsdeel: (stadsdeel: StadsdeelType) => void;
 }
 
 export const Stadsdeel: React.FC<StadsdeelProps> = ({
-    stadsdeelCode,
+    selectedStadsdeel,
+    stadsdelen,
+    handleSelectStadsdeel
 }) => {
 
     return (
@@ -14,7 +20,17 @@ export const Stadsdeel: React.FC<StadsdeelProps> = ({
             <h1> Stadsdeel </h1>
             <h2> Nieuw-West </h2>
             <h3> Code </h3>
-            {stadsdeelCode && <span className={styles.code}>{stadsdeelCode}</span>}
+            {selectedStadsdeel.code !== '' && <span className={styles.code}>{selectedStadsdeel.code}</span>}
+            <Dropdown
+             onSelect={handleSelectStadsdeel}
+              items={stadsdelen}>
+                <Dropdown.Toggle label={"Selecteer stadsdeel"} />
+                <Dropdown.List>
+                    {stadsdelen.map((stadsdeel: StadsdeelType, i: number) => (
+                        <Dropdown.Item key={i} index={i} item={stadsdeel} label={stadsdeel.naam} />
+                    ))}
+                </Dropdown.List>
+            </Dropdown>
         </section>
     );
 }
