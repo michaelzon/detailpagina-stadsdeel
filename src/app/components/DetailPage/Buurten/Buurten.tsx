@@ -31,8 +31,6 @@ export const Buurten: React.FC<BuurtenProps> = ({ selectedWijk, buurten, buurten
         )
     }
 
-    console.log('buurten', buurten);
-
     return (
         <section className={styles.endSection}>
             {selectedWijk.naam && (

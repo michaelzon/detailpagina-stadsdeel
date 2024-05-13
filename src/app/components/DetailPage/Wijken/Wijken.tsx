@@ -9,15 +9,6 @@ interface WijkenProps {
 
 export const Wijken: React.FC<WijkenProps> = ({ wijkenData, handleSelect }) => {
 
-    // if (!wijkenData.length) {
-    //     return (
-    //         <section className={styles.interactiveSection}>
-    //             <h2>Wijken</h2>
-    //             <p>No wijken available.</p>
-    //         </section>
-    //     );
-    // }
-
     return (
         <section className={styles.interactiveSection}>
             <h2> Wijken </h2>

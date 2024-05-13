@@ -41,7 +41,6 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
             }
             try {
                 const buurtenData = await getBuurtenData(selectedWijk.identificatie);
-                // setBuurten(prevBuurten => [...prevBuurten, buurtenData])
                 setBuurten(buurtenData);
             } catch (error: any) {
                 setBuurtenError("Niet gelukt om buurten op te halen. Probeer het later nog een keer.");
