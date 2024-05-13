@@ -18,7 +18,7 @@ export const Stadsdeel: React.FC<StadsdeelProps> = ({
     return (
         <section className={styles.beginSection}>
             <h1> Stadsdeel </h1>
-            <h2> Nieuw-West </h2>
+            <h2> {selectedStadsdeel.naam} </h2>
             <h3> Code </h3>
             {selectedStadsdeel.code !== '' && <span className={styles.code}>{selectedStadsdeel.code}</span>}
             <Dropdown

@@ -12,13 +12,13 @@ import { getWijkenData } from "@/app/api/getWijkenData";
 
 interface AppContainerProps {
     stadsdelenData: any;
-    // stadsdeelData: StadsdeelType;
-    // wijkenData: Wijk[];
+    stadsdeelData: StadsdeelType;
+    wijkenData: Wijk[];
 }
 
 export const AppContainer: React.FC<AppContainerProps> = ({ stadsdelenData, 
-    // stadsdeelData,
-    //  wijkenData
+    stadsdeelData,
+     wijkenData
      }) => {
     const [selectedStadsdeel, setSelectedStadsdeel] = useState<StadsdeelType>({ naam: '', code: '', identificatie: '' })
     const [wijken, setWijken] = useState<Wijk[]>([]);
@@ -29,10 +29,15 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdelenData,
     const [buurtenIsLoading, setBuurtenIsLoading] = useState<boolean>(false);
     const [buurtenError, setBuurtenError] = useState<string>("");
 
+    useEffect(() => {
+        setSelectedStadsdeel(stadsdeelData)
+        setWijken(wijkenData);
+    }, [stadsdeelData.code, wijkenData]);
+
     // useEffect(() => {
-    //     setSelectedStadsdeel(stadsdeelData)
-    //     setWijken(wijkenData);
-    // }, [stadsdeelData.code, wijkenData]);
+    //     const nieuwWest = stadsdelenData.find((item: any) => item.naam === 'Nieuw-West');
+    //     setSelectedStadsdeel(nieuwWest)
+    // }, [])
 
     const handleSelectStadsdeel = (item: StadsdeelType) => {
         setSelectedStadsdeel(item)
@@ -42,7 +47,7 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdelenData,
         setSelectedWijk(item);
     };
 
-    console.log(selectedStadsdeel);
+    // console.log(selectedStadsdeel);
 
     useEffect(() => {
         async function fetchWijken() {
