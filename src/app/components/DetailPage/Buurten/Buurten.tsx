@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Card from '../../Card/Card';
 import styles from './Buurten.module.css'
 import { Buurt, Wijk } from '@/app/types/gebiedenTypes';
@@ -11,23 +10,20 @@ interface BuurtenProps {
 }
 
 export const Buurten: React.FC<BuurtenProps> = ({ selectedWijk, buurten, buurtenIsLoading, buurtenError }) => {
-    const [open, setOpen] = useState<boolean>(true);
-
-    // switching the boolean state directly using the previous state
-    const handleCloseError = () => {
-        setOpen(prevOpen => !prevOpen);
-    }
 
     if (buurtenError) {
         return (
-            <Card isOpen={open} type={'warning'}>
-                <Card.Icon src={"warning.svg"} />
-                <div className={styles.textWrapper}>
-                    <Card.Title title={'Error'} />
-                    <Card.Description description={buurtenError} />
-                </div>
-                <Card.Button handleClose={handleCloseError} />
-            </Card>
+            <section className={styles.endSection}>
+                <Card type={'warning'}>
+                    <Card.Icon><img height={36} width={36} src={'warning.svg'} alt={""} /></Card.Icon>
+                    <div className={styles.textWrapper}>
+                        <Card.Title>{"Error"}</Card.Title>
+                        <Card.Description>{buurtenError}</Card.Description>
+                    </div>
+                    <Card.Button><img height={36} width={36} src={'cross.svg'} alt={"Close"} aria-label={'Close'} /></Card.Button>
+                </Card>
+            </section>
+
         )
     }
 
