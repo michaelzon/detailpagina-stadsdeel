@@ -1,26 +1,28 @@
-import React, { ReactNode, createContext } from 'react';
+import React, { ReactNode, createContext, useContext, useState } from 'react';
 import styles from './Card.module.css'
 
 interface CardProps {
-    isOpen: boolean;
     type: "warning";
     children?: ReactNode;
 };
 
 interface IconProps {
-    src: string;
+    children: ReactNode;
+
 }
 
 interface TitleProps {
-    title: string;
+    children: string;
+
 };
 
 interface DescriptionProps {
-    description: string;
+    children: string;
+
 };
 
 interface ButtonProps {
-    handleClose: () => void;
+    children: ReactNode;
 };
 
 interface CardComponent extends React.FC<CardProps> {
@@ -30,11 +32,24 @@ interface CardComponent extends React.FC<CardProps> {
     Button: React.FC<ButtonProps>;
 };
 
-const CardContext = createContext<CardProps>({ isOpen: false, type: "warning" });
+interface CardContextProps {
+    isOpen: boolean;
+    handleClose: () => void;
+}
 
-const Card: CardComponent = ({ isOpen, type, children }) => {
+const CardContext = createContext<CardContextProps>({ isOpen: true, handleClose: () => { } });
+
+const Card: CardComponent = ({ type, children }) => {
+    const [isOpen, setIsOpen] = useState(true);
+    const handleClose = () => setIsOpen(!isOpen);
+
+    const contextValue = {
+        isOpen,
+        handleClose
+    }
+
     return (
-        <CardContext.Provider value={{ isOpen, type }}>
+        <CardContext.Provider value={contextValue}>
             {isOpen && (
                 <div className={`${styles.container} ${type === 'warning' ? styles.warning : ''}`}>
                     {children}
@@ -44,28 +59,30 @@ const Card: CardComponent = ({ isOpen, type, children }) => {
     )
 };
 
-const Icon: React.FC<IconProps> = ({ src }) => {
+const Icon: React.FC<IconProps> = ({ children }) => {
     return (
-        <img height={36} width={36} src={src} alt={""} />
+        <div> {children} </div>
     )
 };
 
-const Title: React.FC<TitleProps> = ({ title }) => {
+const Title: React.FC<TitleProps> = ({ children }) => {
     return (
-        <h1> {title} </h1>
+        <h1> {children} </h1>
     )
 };
 
-const Description: React.FC<DescriptionProps> = ({ description }) => {
+const Description: React.FC<DescriptionProps> = ({ children }) => {
     return (
-        <p> {description} </p>
+        <p> {children} </p>
     )
 };
 
-const Button: React.FC<ButtonProps> = ({ handleClose }) => {
+const Button: React.FC<ButtonProps> = ({ children }) => {
+    const { handleClose } = useContext(CardContext);
+
     return (
         <button onClick={handleClose} aria-label={'Close'}>
-            <img height={36} width={36} src={'cross.svg'} alt={"Close"} />
+            {children}
         </button>
     )
 };
