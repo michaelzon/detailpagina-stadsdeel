@@ -19,7 +19,6 @@ export const AppContainer: React.FC<AppContainerProps> = ({ stadsdeelData, wijke
     const [selectedWijk, setSelectedWijk] = useState<Wijk>({ identificatie: '', naam: '' });
     const [buurten, setBuurten] = useState<Buurt[]>([]);
     const [buurtenIsLoading, setBuurtenIsLoading] = useState<boolean>(false);
-    const [stadsdeelCode, setStadsdeelCode] = useState<string>('');
     const [buurtenError, setBuurtenError] = useState<string | null>(null);
 
     useEffect(() => {
