@@ -23,7 +23,6 @@ export const Buurten: React.FC<BuurtenProps> = ({ selectedWijk, buurten, buurten
                     <Card.Button><img height={36} width={36} src={'cross.svg'} alt={"Close"} aria-label={'Close'} /></Card.Button>
                 </Card>
             </section>
-
         )
     }
 
