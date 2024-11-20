@@ -1,36 +1,170 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Detailpagina Stadsdeel Nieuw-West
 
-## Getting Started
+This project is a Next.js application designed to display hierarchical data about a specific stadsdeel (district) in Amsterdam, focusing on Nieuw-West. The application fetches data from Amsterdam's public APIs and provides an interactive interface to explore stadsdelen, wijken (neighborhoods), and buurten (sub-neighborhoods).
+Live app can be viewed here: https://detailpagina-stadsdeel.vercel.app/
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Displays detailed information about the selected stadsdeel (Nieuw-West).
+- Lists wijken within the stadsdeel and allows selection via a dropdown.
+- Fetches and displays buurten based on the selected wijk.
+- Handles errors gracefully with user-friendly messages.
+- Includes accessibility features like keyboard navigation for dropdowns.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[//]: # (## Getting Started)
+[//]: # ()
+[//]: # (### Prerequisites)
+[//]: # ()
+[//]: # (Ensure you have the following installed on your system:)
+[//]: # ()
+[//]: # (- Node.js &#40;v16 or later recommended&#41;)
+[//]: # (- npm, yarn, pnpm, or bun &#40;your choice of package manager&#41;)
+[//]: # ()
+[//]: # (### Installation)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[//]: # ()
+[//]: # (1. Clone the repository:)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+[//]: # ()
+[//]: # (   ```bash)
+
+[//]: # (   git clone https://github.com/michaelzon/detailpagina-stadsdeel.git)
+
+[//]: # (   cd detailpagina-stadsdeel)
+
+[//]: # (   ```)
+
+[//]: # ()
+[//]: # (2. Install dependencies:)
+
+[//]: # ()
+[//]: # (   ```bash)
+
+[//]: # (   npm install)
+
+[//]: # (   # or)
+
+[//]: # (   yarn install)
+
+[//]: # (   # or)
+
+[//]: # (   pnpm install)
+
+[//]: # (   ```)
+
+[//]: # ()
+[//]: # (### Running the Development Server)
+
+[//]: # ()
+[//]: # (Start the development server:)
+
+[//]: # ()
+[//]: # (```bash)
+
+[//]: # (npm run dev)
+
+[//]: # (# or)
+
+[//]: # (yarn dev)
+
+[//]: # (# or)
+
+[//]: # (pnpm dev)
+
+[//]: # (# or)
+
+[//]: # (bun dev)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (Open [http://localhost:3000]&#40;http://localhost:3000&#41; in your browser to view the application.)
+
+### API Dependencies
+
+This application uses public APIs provided by Amsterdam. Ensure the following endpoints are accessible:
+
+- Stadsdelen: `https://api.data.amsterdam.nl/v1/gebieden/stadsdelen/`
+- Wijken: `https://api.data.amsterdam.nl/v1/gebieden/wijken/`
+- Buurten: `https://api.data.amsterdam.nl/v1/gebieden/buurten/`
+
+### Project Structure
+
+- **API Layer:** Fetch functions (`getStadsdeelData`, `getWijkenData`, `getBuurtenData`) retrieve hierarchical data from Amsterdam's public APIs.
+- **Components:**
+    - `AppContainer`: The main container managing state and API interactions.
+    - `DetailPage`: Displays data for stadsdeel, wijken, and buurten.
+    - `Dropdown`: A reusable dropdown component with keyboard navigation.
+    - `Card`: A flexible card component for displaying errors and messages.
+- **Styling:** Modular CSS files ensure scoped styles.
+
+[//]: # (## Deployment)
+
+[//]: # ()
+[//]: # (To deploy the application:)
+
+[//]: # ()
+[//]: # (1. Build the project:)
+
+[//]: # ()
+[//]: # (   ```bash)
+
+[//]: # (   npm run build)
+
+[//]: # (   # or)
+
+[//]: # (   yarn build)
+
+[//]: # (   # or)
+
+[//]: # (   pnpm build)
+
+[//]: # (   ```)
+
+[//]: # ()
+[//]: # (2. Start the production server locally:)
+
+[//]: # ()
+[//]: # (   ```bash)
+
+[//]: # (   npm start)
+
+[//]: # (   # or)
+
+[//]: # (   yarn start)
+
+[//]: # (   # or)
+
+[//]: # (   pnpm start)
+
+[//]: # (   ```)
+
+[//]: # ()
+[//]: # (3. Alternatively, deploy the app on [Vercel]&#40;https://vercel.com/&#41; for production hosting. Check the [Next.js deployment documentation]&#40;https://nextjs.org/docs/deployment&#41; for details.)
+
+
+[//]: # (### Local Development Tips)
+
+[//]: # ()
+[//]: # (- Use the browser's developer tools to debug API requests and responses.)
+
+[//]: # (- Use the included `skeleton-loader.svg` to indicate loading states for data.)
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+For more information, check out the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API.
+- [Amsterdam's Public APIs](https://data.amsterdam.nl) - Explore the open datasets provided by the City of Amsterdam.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+[//]: # (## Author)
 
-## Deploy on Vercel
+[//]: # ()
+[//]: # (This project was created by [Michael Zonneveld]&#40;https://github.com/michaelzon&#41; for Gemeente Amsterdam.)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[//]: # ()
+[//]: # (View the repository: [GitHub]&#40;https://github.com/michaelzon/detailpagina-stadsdeel&#41;)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
