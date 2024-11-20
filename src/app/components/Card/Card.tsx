@@ -4,26 +4,23 @@ import styles from './Card.module.css'
 interface CardProps {
     type: "warning";
     children?: ReactNode;
-};
+}
 
 interface IconProps {
     children: ReactNode;
-
 }
 
 interface TitleProps {
     children: string;
-
-};
+}
 
 interface DescriptionProps {
     children: string;
-
-};
+}
 
 interface ButtonProps {
     children: ReactNode;
-};
+}
 
 interface CardComponent extends React.FC<CardProps> {
     Icon: React.FC<IconProps>;

@@ -3,7 +3,7 @@
   --border-radius: 12px;
   --font-family: 'Ariel', sans-serif;
   --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255; 
+  --background-rgb: 255, 255, 255;
 }
 
 * {
@@ -34,7 +34,6 @@ body {
 
 a {
   color: inherit;
-  text-decoration: none;
 }
 
 @media (prefers-color-scheme: white) {

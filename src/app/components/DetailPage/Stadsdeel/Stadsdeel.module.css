@@ -19,7 +19,7 @@
 @media (max-width: 600px) {
     .beginSection {
         flex-direction: column;
-        border-right: 0; 
+        border-right: 0;
         border-bottom: 0;
     }
   }
