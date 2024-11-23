@@ -102,7 +102,6 @@ For more information, check out the following resources:
 - [ ] Provide a quicker overview of neighborhoods.
 - [ ] Improve typing (e.g., `DataObj`, `StadsdeelType`, etc.).
 - [ ] Add more tests.
-- [ ] Organize reusable components into a dedicated folder instead of placing everything under `components`.
 
 ## License
 
